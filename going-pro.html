@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Going Pro -- Taki Moore Black Belt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58;
+    --purple-light: #41A687;
+    --purple-faint: #E7F1EC;
+    --purple-tint: #DCEAE3;
+    --orange: #FF735D;
+    --orange-faint: #FFEDE9;
+    --teal: #41A687;
+    --ground: #EFECE5;
+    --surface: #FFFFFF;
+    --surface-2: #F5F2EB;
+    --text: #1E2F24;
+    --text-muted: #5b6b62;
+    --border: rgba(42,107,88,0.15);
+    --border-strong: rgba(42,107,88,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 7px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.6; }
+
+  .main { min-width: 0; }
+
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.04); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(32px, 4.5vw, 50px); font-weight: 800; line-height: 1.1; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.72); max-width: 560px; line-height: 1.7; margin-bottom: 24px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 28px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 26px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; margin-bottom: 16px; }
+  .card h3 { font-size: 18px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 20px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 5px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+
+  .two-col-list { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .two-col-list ul { padding-left: 18px; }
+  .two-col-list li { font-size: 13.5px; line-height: 1.6; margin-bottom: 6px; }
+  @media (max-width: 700px) { .two-col-list { grid-template-columns: 1fr; } }
+
+  .three-col-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .three-col-list { grid-template-columns: 1fr; } }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; color: var(--purple); background: var(--purple-faint); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+
+  .split-test { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .split-cell { border-radius: 8px; padding: 20px 22px; }
+  .split-cell.a { background: var(--surface-2); border: 1px solid var(--border); }
+  .split-cell.b { background: var(--purple-faint); border: 1px solid var(--border-strong); }
+  .split-cell .split-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .split-cell.a .split-label { color: var(--text-muted); }
+  .split-cell.b .split-label { color: var(--purple); }
+  .split-cell p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+  .split-cell .split-result { font-size: 22px; font-weight: 800; color: var(--purple); }
+  .split-cell .split-result-label { font-size: 11px; color: var(--text-muted); }
+  @media (max-width: 700px) { .split-test { grid-template-columns: 1fr; } }
+
+  .menu-row { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .menu-row:last-child { border-bottom: none; }
+  .menu-cadence { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); padding-top: 2px; }
+  .menu-body .menu-name { font-size: 15px; font-weight: 700; color: var(--purple); margin-bottom: 4px; }
+  .menu-body p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+  .nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .nurture-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; border-top: 3px solid var(--orange); }
+  .nurture-item .n-name { font-size: 14px; font-weight: 700; color: var(--purple); margin-bottom: 6px; }
+  .nurture-item .n-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+  @media (max-width: 900px) { .nurture-grid { grid-template-columns: 1fr; } }
+
+  .metrics-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; margin-top: 4px; }
+  .metric-chip { background: var(--purple-faint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 14px 18px; min-width: 110px; }
+  .metric-chip .val { font-size: 22px; font-weight: 800; color: var(--purple); display: block; line-height: 1; margin-bottom: 3px; }
+  .metric-chip .lbl { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; }
+    .hero-stats { gap: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </symbol>
+</svg>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt &middot; March Intensive 2026</span>
+    <span class="title">Going Pro</span>
+    <a href="index.html" class="back-link">&#8592; Back to Hub</a>
+  </div>
+  <ul class="sidebar-nav">
+    <li><span class="nav-section">Overview</span></li>
+    <li><a href="#overview">The Decision</a></li>
+    <li><span class="nav-section">1. Go Pro</span></li>
+    <li><a href="#two-dates">The Two Dates</a></li>
+    <li><a href="#hourly-rate">The Hourly Rate</a></li>
+    <li><a href="#turning-pro">Turning Pro</a></li>
+    <li><a href="#the-journey">The Journey</a></li>
+    <li><a href="#decision-point">The Decision Point</a></li>
+    <li><span class="nav-section">2. Create Brandwidth</span></li>
+    <li><a href="#brandwidth">Brandwidth &amp; the 47 Minutes</a></li>
+    <li><a href="#funnel-web">Funnel vs. Web</a></li>
+    <li><a href="#creative-heroes">Your Creative Heroes</a></li>
+    <li><a href="#choose-channels">Choose Your Channels</a></li>
+    <li><a href="#artist-dept">Artist Development Dept.</a></li>
+    <li><span class="nav-section">3. Become Magnetic</span></li>
+    <li><a href="#creative-dilemma">The Creative Dilemma</a></li>
+    <li><a href="#tensions">The Tensions</a></li>
+    <li><a href="#manifesto">The Manifesto</a></li>
+    <li><a href="#see-say">See Something, Say Something</a></li>
+    <li><a href="#energy-opinion">Energy + Opinion</a></li>
+    <li><span class="nav-section">4. Get Bingeable</span></li>
+    <li><a href="#entry-point">The Entry Point</a></li>
+    <li><a href="#surgeons-workflow">Surgeon's Workflow</a></li>
+    <li><a href="#ai-amplified">AI-Amplified Creator</a></li>
+    <li><a href="#production-menu">Production Menu</a></li>
+    <li><span class="nav-section">5. Sell Out</span></li>
+    <li><a href="#easy-yes">Easy Yes Ramps</a></li>
+    <li><a href="#the-system">The System</a></li>
+    <li><a href="#offer-cycle">The Offer Cycle</a></li>
+    <li><span class="nav-section">Wrap</span></li>
+    <li><a href="#recap">Recap</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <section class="hero" id="overview">
+    <div class="hero-eyebrow">Taki Moore &middot; Black Belt Coaching</div>
+    <h1>Going <em>Pro</em></h1>
+    <p class="hero-desc">The single decision that changed Taki's business more than anything else last year -- and the five-stage process (Go Pro, Brandwidth, Magnetic, Bingeable, Sell Out) for doing the same with content, without losing yourself to the algorithm.</p>
+    <a href="https://blackbeltmembers.com/going-pro/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the full video (1:31:53)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">$78K/hr</span><span class="label">Content ROI, one team's real month</span></div>
+      <div class="hero-stat"><span class="num">2x</span><span class="label">Buyer rate from the 47-min binge group</span></div>
+      <div class="hero-stat"><span class="num">1,800</span><span class="label">Leads from a single Instagram post</span></div>
+      <div class="hero-stat"><span class="num">5</span><span class="label">Stages in The PROcess</span></div>
+    </div>
+  </section>
+
+  <!-- 01 THE DECISION -->
+  <section class="section" id="two-dates">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">1. Go Pro</h2>
+        <div class="section-subtitle">The decision, made with eyes open</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The Two Dates -- Day You Started vs. Day You Decided</h3>
+      <p>Taki asked five friends with big personal brands when they started. Every one gave the same shape of answer: "I started here, but I took it seriously there." Plot views or sales over time and there are two distinct dates -- the day they first posted, and the separate day everything bent upward.</p>
+      <p>Taki's own YouTube: first video posted Nov 2011. Flat line for 13-14 years. Then one park-bench conversation where he decided to go pro, and the line bends up -- YouTube, Instagram, new clients, business growth and money all bend on that exact same date.</p>
+    </div>
+    <div class="quote-block"><p>"There's the day you start and the day you decide to go pro. Everything traces back to that one decision."</p></div>
+
+    <div class="card" id="hourly-rate">
+      <h3>The Professional's Hourly Rate</h3>
+      <p>Calculate it: hours spent creating content last month, divided into money made that traced back to that content. Taki's team example below -- and even the lowest hourly rate Taki's seen anyone run this exercise with still lands around $1,000/hour.</p>
+    </div>
+    <div class="metrics-row">
+      <div class="metric-chip"><span class="val">22 hrs</span><span class="lbl">Content made that month (6 email + 16 video)</span></div>
+      <div class="metric-chip"><span class="val">$84K</span><span class="lbl">Workshop ticket sales</span></div>
+      <div class="metric-chip"><span class="val">45</span><span class="lbl">New clients, $112K/mo</span></div>
+      <div class="metric-chip"><span class="val">1,800</span><span class="lbl">New leads, one IG post</span></div>
+    </div>
+    <div class="callout"><p><strong>Founder-led content is the one job that can't be outsourced.</strong> Show me one other job you do that pays like that.</p></div>
+
+    <div class="card" id="turning-pro">
+      <h3>Turning Pro -- Amateurs vs. Pros</h3>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Credit: Steven Pressfield, <em>Turning Pro</em></p>
+      <div class="two-col-list">
+        <div>
+          <h4>Amateurs</h4>
+          <ul>
+            <li>Dabble when it's convenient</li>
+            <li>Wait for inspiration</li>
+            <li>Start a lot, finish little</li>
+            <li>Let mood dictate output</li>
+            <li>Need to "feel ready"</li>
+            <li>Negotiate with Resistance</li>
+            <li>Take failure personally</li>
+            <li>Play part-time, want full-time results</li>
+            <li>Keep backup plans and escape hatches</li>
+            <li>Talk about the dream more than they work</li>
+            <li>Seek external validation</li>
+            <li>Avoid discomfort</li>
+            <li>Measure effort ("I tried")</li>
+            <li>Protect their ego</li>
+            <li>Romanticize the craft</li>
+            <li>Quit when it stops being fun</li>
+            <li>Identify with outcomes</li>
+            <li>Treat turning pro as a someday milestone</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Pros</h4>
+          <ul>
+            <li>Show up daily, no matter what</li>
+            <li>Work on a schedule</li>
+            <li>Finish what they start</li>
+            <li>Let commitment dictate output</li>
+            <li>Decide they are ready</li>
+            <li>Expect Resistance and work anyway</li>
+            <li>Treat failure as feedback</li>
+            <li>Play full-time, regardless of current results</li>
+            <li>Close escape hatches</li>
+            <li>Do the work</li>
+            <li>Self-authorize</li>
+            <li>Lean into discomfort</li>
+            <li>Measure standards ("Was it pro-level?")</li>
+            <li>Protect the work</li>
+            <li>Treat it like a job</li>
+            <li>Keep going when it stops being fun</li>
+            <li>Identify with the process</li>
+            <li>Treat turning pro as a daily choice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="the-journey">
+      <h3>The Journey -- Uninformed Optimism to Informed Optimism</h3>
+      <p>Four points on the curve: <strong>Uninformed optimism</strong> (day one, naive, "this'll be easy") dips into <strong>Informed pessimism</strong> ("oh crap, this is hard") and bottoms out at the <strong>Valley of Despair</strong> -- where most people quit -- before climbing to <strong>Informed optimism</strong>: knowing what it takes, confident in the plan, doing it your own way.</p>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Expectations</div>
+      <div class="menu-body"><div class="menu-name">Amateur: instant and easy &rarr; Pro: the long game</div><p>Post weekly for 12 months with zero expectation of return -- it's still worth it as an asset being built.</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Success</div>
+      <div class="menu-body"><div class="menu-name">Amateur: did it go viral &rarr; Pro: three things</div><p>Was it useful, was it fun, did I learn something to make the next one better. "Learning is the winning."</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Path</div>
+      <div class="menu-body"><div class="menu-name">Amateur: reps &rarr; Pro: iterations</div><p>Repeating the same year 30 times isn't 30 years of experience. Each piece needs to teach you something.</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Navigation</div>
+      <div class="menu-body"><div class="menu-name">Amateur: only the numbers &rarr; Pro: both</div><p>"Am I proud of it?" (quality/effort) and "Do the numbers work?" (business signal) -- use both.</p></div>
+    </div>
+
+    <div class="card card-accent" id="decision-point" style="margin-top:16px;">
+      <h3>The Decision Point</h3>
+      <p>Two lists, 30 seconds each: <strong>Best feelings</strong> (what excites you about going pro) and <strong>Worst feelings</strong> (what you're nervous about -- Taki's own two fears were camera crews following him daily, and needing a big media team he didn't want).</p>
+      <p>Then the actual decision: sign and date it. "Today is the day I decide to go pro." Not a Mickey Mouse commitment -- say it out loud, post about it publicly if it helps make it real.</p>
+    </div>
+  </section>
+
+  <!-- 02 CREATE BRANDWIDTH -->
+  <section class="section" id="brandwidth">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">2. Create Brandwidth</h2>
+        <div class="section-subtitle">Get the right people to discover you and binge as much as possible</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Brandwidth &amp; the 47-Minute Story</h3>
+      <p>Real estate coach Sharam couldn't tell why people bought, so he ran the numbers on every buyer from the last two years. It wasn't demographics, ads, or funnels -- the only thing every buyer had in common was consuming at least <strong>47 minutes</strong> of his content (some took a year to hit it, some hit it in a day).</p>
+    </div>
+    <div class="split-test">
+      <div class="split-cell a">
+        <div class="split-label">Group A -- Normal Path</div>
+        <p>Standard 30-day nurture sequence, same lead magnet, no change to pacing.</p>
+        <div class="split-result">Baseline</div>
+        <div class="split-result-label">No change in buying behaviour</div>
+      </div>
+      <div class="split-cell b">
+        <div class="split-label">Group B -- Engineered Binge</div>
+        <p>Same lead magnet, but the 30-day sequence mixed formats (emails, shorts, podcast, long-form, memes) purely to rack up consumption minutes fast.</p>
+        <div class="split-result">2x purchases</div>
+        <div class="split-result-label">+40% higher sales call conversion</div>
+      </div>
+    </div>
+    <div class="quote-block"><p>"Binges are buyers." Brandwidth = the number of minutes someone spends consuming your brand. The job isn't time on list, it's time on brand.</p></div>
+
+    <div class="card" id="funnel-web">
+      <h3>Funnel vs. Web</h3>
+      <p>Old model: a linear funnel -- never-heard-of-you &rarr; process &rarr; money. It's also the only thing deliberately designed to get worse over time (lots at the top, fewer in the middle, one client out the bottom).</p>
+      <p>Real buying looks like a web: short form, then an email, ignore you for a bit, pop up on YouTube, a friend's recommendation -- messy and non-linear, and out the bottom comes a happy client. "Not very strategic, but that's super f***ing strategic." Get people stuck in the web binging, and that's the win.</p>
+    </div>
+
+    <div class="card" id="creative-heroes">
+      <h3>Your Creative Heroes</h3>
+      <p>Exercise: name two creative heroes -- personal brands (not companies) whose content you actually binge. List which channels you follow them on, then 60 seconds fast: what do they do, what do they not do, what about their vibe lands for you.</p>
+      <p>The insight that follows: you don't resonate with their style by accident -- it resonates because that quality is already in you, or you wouldn't have noticed it. Taki loves Jason Fried for having a strong opinion, loves Casey Neistat for the adventure in every video -- his own content got fun once he leaned into both, his own version, badly done, but his.</p>
+    </div>
+
+    <div class="card" id="choose-channels" style="margin-top:16px;">
+      <h3>Choose Your Channels -- Three Games by Revenue</h3>
+      <p style="margin-bottom:0;">"I don't recommend playing at a level higher than where you're at."</p>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Under $30K/mo</div>
+      <div class="menu-body"><div class="menu-name">Volume</div><p>One short-form channel + email. Not YouTube, not every channel. Goal: iterate, find your voice and your market.</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">$30K/mo -- $1M/yr</div>
+      <div class="menu-body"><div class="menu-name">Value</div><p>Add one long-form channel (Taki's pick: YouTube). Less, but better -- quality comes from doing quantity until you're consistently a 7-8.</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">7-figures+</div>
+      <div class="menu-body"><div class="menu-name">Velocity</div><p>Omnipresence, every channel. Needs team, tech, systems. Taki runs an 8-figure business and deliberately stays in Value by choice.</p></div>
+    </div>
+
+    <div class="card" id="artist-dept" style="margin-top:16px;">
+      <h3>The Artist Development Dept. -- Archetype, Performance Space, Super Power</h3>
+      <p>Three questions to find your natural content strategy instead of copying someone else's. Pick one or two per layer -- first instinct is usually right.</p>
+      <div class="three-col-list">
+        <div>
+          <h4 style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">Archetype -- how you share</h4>
+          <div class="tag-row">
+            <span class="tag">Teacher</span><span class="tag">Simplifier</span><span class="tag">Philosopher</span><span class="tag">Storyteller</span><span class="tag">Motivator</span><span class="tag">Contrarian</span><span class="tag">Operator</span><span class="tag">Curator</span><span class="tag">Guide</span><span class="tag">Entertainer</span>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">Performance Space -- where you're strongest</h4>
+          <div class="tag-row">
+            <span class="tag">Stages</span><span class="tag">Video</span><span class="tag">Connector</span><span class="tag">Writer</span><span class="tag">Demonstrator</span>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">Super Power -- your edge</h4>
+          <div class="tag-row">
+            <span class="tag">Draws</span><span class="tag">Analogy</span><span class="tag">Patterns</span><span class="tag">Systemiser</span><span class="tag">Hot Takes</span><span class="tag">Shows Numbers</span><span class="tag">Energiser</span><span class="tag">Taste Maker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 BECOME MAGNETIC -->
+  <section class="section" id="creative-dilemma">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">3. Become Magnetic</h2>
+        <div class="section-subtitle">The stage everyone gets in their own way on</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The Creative Dilemma -- Artist vs. Business</h3>
+      <p>Two forces in permanent tension: the <strong>artist</strong> wants creative expression, plays a resonance game -- people vibe with it or they don't. The <strong>business</strong> wants consistency and volume, plays a results game.</p>
+      <p>Push either to its extreme and you lose: all-artist becomes a starving artist making things nobody but you cares about. All-business becomes a slop factory pumping volume nobody wants. The win is the overlap -- resonates AND grows the business.</p>
+    </div>
+    <div class="quote-block"><p>"Artists can't be copied. Business can't be matched. Together, can't be beat."</p></div>
+
+    <div class="card" id="tensions">
+      <h3>The Tensions -- Business Wants / Artist Wants</h3>
+      <div class="two-col-list">
+        <div>
+          <h4>Business wants</h4>
+          <ul>
+            <li>More</li>
+            <li>Go viral</li>
+            <li>Views</li>
+            <li>Big team (the Dan Martel model)</li>
+            <li>Cover band -- copy what's proven</li>
+            <li>What the algorithm wants</li>
+            <li>Follow the content calendar</li>
+            <li>Do what's most important</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Artist wants</h4>
+          <ul>
+            <li>Better</li>
+            <li>Go niche-viral -- reach the right few</li>
+            <li>Sales</li>
+            <li>Lean and light, stay close to the work</li>
+            <li>Original -- Rick Rubin: "if it sounds like it could be on anyone else's album, it doesn't belong on yours"</li>
+            <li>What I actually want to make</li>
+            <li>Make what's exciting right now</li>
+            <li>Do what's most interesting</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:14px;">None of these are wrong -- they're dials, not verdicts. Taki's resolution: pick a 6-week offer cycle for structure (business), then make whatever he's excited about that day within it (artist).</p>
+    </div>
+
+    <div class="card" id="manifesto">
+      <h3>The Million Dollar Coach Manifesto -- Old Way / New Way</h3>
+      <p style="margin-bottom:0;">"Draw a line in the sand: that's the old way, I'm the new way. That's how you win."</p>
+    </div>
+    <div class="split-test">
+      <div class="split-cell a"><div class="split-label">Attract -- Old Way</div><p>Traffic &amp; funnels</p></div>
+      <div class="split-cell b"><div class="split-label">Attract -- New Way</div><p>Magnetic &amp; bingeable</p></div>
+    </div>
+    <div class="split-test">
+      <div class="split-cell a"><div class="split-label">Connect / Sell -- Old Way</div><p>Chase money</p></div>
+      <div class="split-cell b"><div class="split-label">Connect / Sell -- New Way</div><p>Choose your squad ("salesless" -- choosing instead of chasing)</p></div>
+    </div>
+    <div class="split-test">
+      <div class="split-cell a"><div class="split-label">Deliver -- Old Way</div><p>Irresistible offers -- often ends with clients you hate</p></div>
+      <div class="split-cell b"><div class="split-label">Deliver -- New Way</div><p>Energising experience -- designed to energise you first, then them</p></div>
+    </div>
+    <div class="split-test">
+      <div class="split-cell a"><div class="split-label">Scale -- Old Way</div><p>Looks good to others</p></div>
+      <div class="split-cell b"><div class="split-label">Scale -- New Way</div><p>Feels good to me -- lifestyle empire</p></div>
+    </div>
+    <div class="callout callout-purple"><p><strong>Build your own:</strong> take your own magic-model categories, brainstorm the "bad medicine" everyone else teaches that you disagree with, then write your alternative belief opposite it. Contradicting common wisdom turns a repeated thought into a thought-leader position.</p></div>
+
+    <div class="card" id="see-say">
+      <h3>See Something, Say Something</h3>
+      <p>Three skills, same-day if possible: <strong>See</strong> something (notice what's happening in your world), <strong>Make</strong> something (connect it to a lesson or story), <strong>Say</strong> something (share it). Short-form formula: story &rarr; lesson &rarr; invitation. Content calendars tell you what you thought five weeks ago -- the shorter the loop, the more your real energy is in the piece.</p>
+    </div>
+
+    <div class="card card-accent" id="energy-opinion">
+      <h3>Energy + Opinion -- What the Robots Don't Have</h3>
+      <p>Anything purely informational, AI already does in 10 seconds. What can't be automated: your <strong>world</strong> (real lived experience -- noticing = energy) and your <strong>worldview</strong> (your opinion about it). Only post when you have real energy and a real opinion. "It's the wizard, not the wand."</p>
+    </div>
+  </section>
+
+  <!-- 04 GET BINGEABLE -->
+  <section class="section" id="entry-point">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">4. Get Bingeable</h2>
+        <div class="section-subtitle">Volume without losing the energy from stage three</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The Entry Point -- Waterfall vs. Bottom-Up</h3>
+      <p>Two known models: <strong>Waterfall</strong> (Gary V) -- make one big long-form piece, trickle it down into all the short-form. <strong>Bottom-up</strong> (Hormozi's team) -- post tiny snack-size ideas constantly, build up whichever ones perform.</p>
+      <p>Taki's version: know your entry point -- where content actually starts for you -- and build everything else off that one piece, same week. His is long-form (workshop &rarr; YouTube video same week &rarr; email and shorts about the same topic). One system, not two running in parallel. Straight re-clipping doesn't perform as well as content shot fit-for-purpose -- "repurposing died in 2020."</p>
+    </div>
+
+    <div class="card" id="surgeons-workflow">
+      <h3>The Brain Surgeon's Workflow -- Setup, Makeup, Cleanup</h3>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Credit: Matt Church</p>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Setup</div>
+      <div class="menu-body"><div class="menu-name">The idea + packaging</div><p>Hook, title, thumbnail, first 3-5 seconds (short) or first 30 seconds (long).</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Makeup</div>
+      <div class="menu-body"><div class="menu-name">Actually shooting or writing it</div><p>The one part that has to be you.</p></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-cadence">Cleanup</div>
+      <div class="menu-body"><div class="menu-name">Editing, posting, the numbers</div><p>Get out of this first -- editors and AI tools are cheap. The brain surgeon doesn't prep the theatre or stitch the patient up.</p></div>
+    </div>
+
+    <div class="callout" id="ai-amplified" style="margin-top:16px;">
+      <p><strong>The AI-Amplified Creator:</strong> use AI on both ends of the workflow, never the middle. Setup -- a thinking partner ("ask me questions to sharpen what I believe"). Cleanup -- an editor ("what's the point here, this bit doesn't land"). Makeup -- never let AI make up the actual idea or write the actual words.</p>
+    </div>
+
+    <div class="card" id="production-menu">
+      <h3>The Commercial Production Menu</h3>
+      <p>Pick a few, not the whole menu -- "or you get infobesity."</p>
+      <ul>
+        <li><strong>Date with a dude</strong> -- pair with a videographer, co-writer, or accountability partner. Not good working solo.</li>
+        <li><strong>Less, but better</strong> -- one great piece a month beats an unsustainable public commitment.</li>
+        <li><strong>Cycle planning</strong> -- every 6 weeks, decide the offer themes. Gives creativity boundaries without dictating exact topics.</li>
+        <li><strong>Remix, not clip</strong> -- reshoot the good bits fit-for-format rather than chopping long-form into shorts.</li>
+        <li><strong>Packaging</strong> -- hook, title, thumbnail, CTA decided before the content is even sketched.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 SELL OUT -->
+  <section class="section" id="easy-yes">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">5. Sell Out</h2>
+        <div class="section-subtitle">Pointing all of the above at your actual offers</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Easy Yes Ramps -- Only Sell the Next Step</h3>
+      <p>Map cold &rarr; warm &rarr; hot, and every piece of content only sells the very next step, never the destination: short-form sends to long-form or a micro-magnet &rarr; email/VSL. Email and long-form both send to the offer doc. Nothing tries to close cold traffic straight to the sale.</p>
+    </div>
+
+    <div class="card" id="the-system">
+      <h3>The System -- Attract, Convert, Deliver</h3>
+    </div>
+    <div class="nurture-grid">
+      <div class="nurture-item"><div class="n-name">Attract</div><div class="n-desc">Short form + micromagnet + workshop</div></div>
+      <div class="nurture-item"><div class="n-name">Nurture Cycle</div><div class="n-desc">Chat, long form, email, VSL -- rotating, no forced order</div></div>
+      <div class="nurture-item"><div class="n-name">Convert</div><div class="n-desc">Offer doc + appointment engine, shaped by the Offer Diamond</div></div>
+    </div>
+    <div class="metrics-row">
+      <div class="metric-chip"><span class="val">Hero</span><span class="lbl">Client outcome stories</span></div>
+      <div class="metric-chip"><span class="val">MRR</span><span class="lbl">The Deliver-stage output</span></div>
+    </div>
+
+    <div class="card" id="offer-cycle" style="margin-top:16px;">
+      <h3>The Offer Cycle</h3>
+      <p>Rotate through a known offer menu on a set weekly cadence rather than deciding fresh every week.</p>
+    </div>
+    <div class="menu-row"><div class="menu-cadence">Week 1</div><div class="menu-body"><div class="menu-name">Boardroom</div></div></div>
+    <div class="menu-row"><div class="menu-cadence">Week 2</div><div class="menu-body"><div class="menu-name">Workshop</div></div></div>
+    <div class="menu-row"><div class="menu-cadence">Week 3</div><div class="menu-body"><div class="menu-name">BB Open</div></div></div>
+    <div class="menu-row"><div class="menu-cadence">Week 4</div><div class="menu-body"><div class="menu-name">Clients</div></div></div>
+    <div class="menu-row"><div class="menu-cadence">Week 5</div><div class="menu-body"><div class="menu-name">Club Random</div></div></div>
+  </section>
+
+  <!-- RECAP -->
+  <section class="section" id="recap">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">Recap</h2>
+        <div class="section-subtitle">What this means day to day</div>
+      </div>
+    </div>
+    <div class="card card-accent">
+      <h4>Remember</h4>
+      <ol>
+        <li>The decision to go pro is the only thing that actually matters -- everything else is gravy once it's made.</li>
+        <li>Brandwidth beats time on list -- binges are buyers, so mix formats to get 47 minutes consumed fast.</li>
+        <li>Magnetic comes from your world (energy) plus your worldview (opinion) -- that's what robots can't copy.</li>
+        <li>Bingeable is a workflow problem, not a hustle problem -- know your entry point, get out of cleanup, use AI at the edges not the middle.</li>
+        <li>Sell out by only ever selling the next step -- never the destination.</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+</div>
+
+<footer class="page-footer">
+  <div class="footer-note">Taki Moore Black Belt &middot; Going Pro &middot; Transcribed from video</div>
+  <div class="footer-note"><a href="index.html">&#8592; Back to Black Belt Hub</a></div>
+</footer>
+
+</body>
+</html>

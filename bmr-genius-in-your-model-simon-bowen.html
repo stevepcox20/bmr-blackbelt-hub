@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Genius in Your Model with Simon Bowen -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+    --red-faint: rgba(220,50,50,0.07); --red-border: rgba(220,50,50,0.2);
+    --amber-faint: rgba(224,160,50,0.1); --amber-border: rgba(224,160,50,0.28);
+    --green-faint: rgba(30,160,90,0.08); --green-border: rgba(30,160,90,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface); color: var(--text); font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.65; }
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 6px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+  .main { min-width: 0; }
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 24px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 18px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .card-dark { background: var(--purple); border-color: transparent; }
+  .card-dark h4 { color: var(--orange); opacity: 1; }
+  .card-dark p { color: rgba(255,255,255,0.85); }
+  .card-dark strong { color: #fff; }
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+  .script-block { background: var(--purple-tint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; }
+  .script-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 10px; display: block; }
+  .script-block p { font-size: 13.5px; line-height: 1.7; color: var(--text); margin: 0; font-style: italic; }
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+  .vs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 8px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); }
+  .vs-header { padding: 12px 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+  .vs-header.old { background: var(--red-faint); color: #c03030; }
+  .vs-header.new { background: var(--green-faint); color: #1a7a50; }
+  .vs-row-old, .vs-row-new { padding: 11px 18px; font-size: 13px; line-height: 1.55; }
+  .vs-row-old { background: rgba(220,50,50,0.04); color: #7a2020; border-bottom: 1px solid rgba(220,50,50,0.07); }
+  .vs-row-new { background: rgba(30,160,90,0.04); color: #1a5030; border-bottom: 1px solid rgba(30,160,90,0.07); }
+  .rank-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .rank-item { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .rank-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rank-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; opacity: 1; }
+  .rank-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .ratio-bar { display: flex; height: 46px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; border: 1px solid var(--border-strong); }
+  .ratio-seg { display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; }
+  .ratio-seg.create { background: var(--orange); flex: 0 0 20%; }
+  .ratio-seg.curate { background: var(--purple); flex: 0 0 80%; }
+  .problem-levels { display: flex; flex-direction: column; gap: 0; margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .problem-level { padding: 16px 22px; }
+  .problem-level h4 { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; opacity: 1; }
+  .problem-level p { font-size: 13.5px; color: var(--text); margin: 0; line-height: 1.6; }
+  .problem-level.known { background: var(--green-faint); }
+  .problem-level.known h4 { color: #1a7a50; }
+  .problem-level.hidden { background: var(--amber-faint); }
+  .problem-level.hidden h4 { color: #a06a10; }
+  .problem-level.unknown { background: var(--purple); }
+  .problem-level.unknown h4 { color: var(--orange); }
+  .problem-level.unknown p { color: rgba(255,255,255,0.85); }
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; } .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt · July Intensive 2026 · Thailand</span>
+    <div class="title">The Genius in Your Model &mdash; Simon Bowen</div>
+    <a href="bmr-july-intensive-thailand.html" class="back-link">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Intensive
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">The Case for a Model</span>
+    <li><a href="#p1">1. How Beats Why</a></li>
+    <li><a href="#p2">2. Completeness, Not Uniqueness</a></li>
+    <li><a href="#p3">3. Three Levels of Problem</a></li>
+    <li><a href="#p4">4. The Futures Model</a></li>
+    <span class="nav-section">Building the Model</span>
+    <li><a href="#p5">5. What a Genius Model Is</a></li>
+    <li><a href="#p6">6. Create / Curate / Integrate</a></li>
+    <li><a href="#p7">7. Choreography Is 50%</a></li>
+    <span class="nav-section">Using It</span>
+    <li><a href="#p8">8. The Red/Amber/Green Close</a></li>
+    <li><a href="#p9">9. Internal Alignment</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#bmr">BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt · July Intensive 2026 · Thailand · Sensei Session · Day 2.2.3</div>
+    <h1>The Genius in Your Model &mdash; Why <em>How</em> Beats <em>Why</em>, and Uniqueness Is Dead</h1>
+    <p class="hero-desc">Simon Bowen built the Genius Model methodology used across billion-dollar companies and solo coaching businesses alike. His argument: uniqueness is commoditized, 60% of complex sales are lost to no-decision-at-all, and the fix is a model that codifies your actual genius &mdash; not a triangle with words in it.</p>
+    <a href="https://blackbeltmembers.com/sensei-session-the-genius-in-your-model-with-simon-bowen/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the original (Black Belt Members site)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">60%</span><span class="label">Of complex sales lost to no decision, not a competitor</span></div>
+      <div class="hero-stat"><span class="num">20/80</span><span class="label">Create vs. Curate split of a genius model</span></div>
+      <div class="hero-stat"><span class="num">50/50</span><span class="label">Design vs. choreography</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="p1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">How Beats Why</div><div class="section-subtitle">A direct pushback on Simon Sinek's "Start With Why"</div></div></div>
+    <div class="quote-block"><p>"Simon Sinek would have been more accurate if he'd said: people don't care what you do until they know that <em>they</em> are the reason why you do it. Why gets you interesting. Why does not make the sale."</p></div>
+    <div class="card card-accent">
+      <p>There is only one "why" that matters in the market &mdash; the customer's. They don't care about yours; they need to feel they are the reason you exist. The actual conversion moment happens at <strong>how</strong>: once a customer believes you're entirely focused on solving their problem, their very next question is "how?" <strong>The Genius Model is a how-model &mdash; conversion happens at how, not at why.</strong></p>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);">Four things a customer needs to believe about you, in this order: <strong>you get it</strong> (you understand the bigger picture of the problem space), <strong>you get me</strong> (you understand them specifically), <strong>you've got it</strong> (you can actually deliver), <strong>you've got me</strong> (you can deliver for them specifically).</p>
+  </section>
+
+  <section class="section" id="p2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">Completeness of Thinking, Not Uniqueness</div><div class="section-subtitle">Uniqueness is commoditized &mdash; everyone claims it</div></div></div>
+    <div class="card">
+      <p>Every business now claims to be unique, so to the customer, A, B, C and D all sound equally plausible &mdash; and an important shift in buyer behaviour since COVID is that customers are now <strong>more afraid of making a bad decision than of picking an untrustworthy provider</strong>. When they can't tell options apart, they don't choose the wrong one &mdash; they choose nothing.</p>
+    </div>
+    <div class="callout"><p><strong>The stat:</strong> 60% of complex B2B sales are lost not to a competitor but to no decision being made at all.</p></div>
+    <div class="quote-block"><p>"Stop seeking uniqueness, start seeking completeness of thinking. That's when you say: A is good, B is good, C is good, D is good &mdash; here's a perspective that shows you how to pull the best of everything into one solution."</p></div>
+    <p style="font-size:14px;color:var(--text-muted);">His framing of imposter syndrome: it comes from pretending you have the one unique answer and that nothing else could help &mdash; which is exhausting and unbelievable. Completeness of thinking removes that pressure entirely.</p>
+  </section>
+
+  <section class="section" id="p3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">The Three Levels of Problem</div><div class="section-subtitle">Systems thinking &mdash; the third coaching mastery, alongside sense-making and framing</div></div></div>
+    <div class="problem-levels">
+      <div class="problem-level known"><h4>Known problem</h4><p>Both of you know it, and you're both allowed to talk about it openly. "We're not making enough sales, help us with sales."</p></div>
+      <div class="problem-level hidden"><h4>Hidden problem</h4><p>Both of you know it, but nobody's allowed to say it out loud. Example: a leadership team asks for "high-performance coaching," but five minutes in, the real issue is that the whole team hates the CEO.</p></div>
+      <div class="problem-level unknown"><h4>Unknown problem &mdash; "the ache"</h4><p>Neither of you can name or locate it yet. This sits at the exact centre of the Genius Model. It's the hardest thing to find, and the single biggest tell of whether a model is surface-level or genuinely deep.</p></div>
+    </div>
+    <div class="callout callout-purple"><p><strong>Finding the ache:</strong> you probably won't find it yourself &mdash; it usually surfaces in client conversations you've heard so many times you've stopped noticing it. It's always framed positively, and it's often absurdly simple once named (often ~3 words). Example given: an infrastructure maintenance manager's real ache wasn't "it's broken" (known-level) or "rework/responsibility" (hidden-level) &mdash; it was <strong>"I just want to be one step ahead."</strong></p></div>
+  </section>
+
+  <section class="section" id="p4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">The Futures Model</div><div class="section-subtitle">Called it "a conversion weapon" &mdash; the frame behind every complex sale</div></div></div>
+    <div class="card card-accent">
+      <p>Time passes regardless of what anyone does. Every customer eventually lands on either the <strong>green line</strong> (an extraordinary upward curve) or the <strong>red line</strong> (decline) &mdash; and the gap between the two only widens the longer nothing changes. Every customer is buying exactly two things: to be made <strong>safe</strong> (protected from the red line) and to <strong>win</strong> (helped to make the decisions/take the actions that produce the green line). Your Genius Model is the mechanism that does both.</p>
+    </div>
+  </section>
+
+  <section class="section" id="p5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">What a Genius Model Actually Is</div><div class="section-subtitle">A codification of company genius, not a shape with words in it</div></div></div>
+    <div class="card">
+      <p><strong>Company genius</strong> = the founder's (or original thinkers') philosophy, beliefs, insights, history (wins, losses, and the lessons from the losses), and formal/informal expertise. That turns into the <strong>who &rarr; what &rarr; how</strong>:</p>
+      <ul>
+        <li><strong>What</strong> (the big idea/solution) breaks into three parts: <em>context</em> (how it serves the customer/solves the problem), <em>concept</em> (what the idea actually is), <em>consequence</em> (the documented results).</li>
+        <li><strong>How</strong> is the delivery layer: speed, ease, leverage.</li>
+      </ul>
+    </div>
+    <div class="quote-block"><p>"As the founder steps back from the business, what does the rest of the company lean on to make a sale? Usually: almost anything. Your Genius Model is the strongest way to retain your thinking in the business without you being there."</p></div>
+    <div class="grid-2">
+      <div class="card"><h4>Mechanics</h4><p>Structures, systems, infrastructure, tech, SOPs. Creates consistency &rarr; delivers a reliable user experience. Tells the customer "we can rely on them."</p></div>
+      <div class="card"><h4>Magic</h4><p>The people and the culture they create. Culture is a feature, not the benefit &mdash; the benefit is company <em>character</em>, seen consistently person after person. Tells the customer "we can trust them."</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="p6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">Create / Curate / Integrate</div><div class="section-subtitle">The 20/80 split that removes imposter syndrome</div></div></div>
+    <div class="ratio-bar"><div class="ratio-seg create">CREATE &mdash; 20%</div><div class="ratio-seg curate">CURATE &mdash; 80%</div></div>
+    <div class="card">
+      <p><strong>Create (20%):</strong> your own lens or philosophy &mdash; built from your history, beliefs, and insights. This is the only part that has to be genuinely yours.</p>
+      <p><strong>Curate (80%):</strong> best practices already in the marketplace, filtered through your lens for what's <em>congruent</em> (fits what you believe to be true) and <em>relevant</em> (still true given how the world has changed).</p>
+      <p><strong>Integrate:</strong> the third piece &mdash; how you pull create + curate together into one coherent, simplified framework. <em>Create, curate, integrate</em> together are what "genius" means here.</p>
+    </div>
+    <div class="callout"><p><strong>Don't try to turn your curated 80% into your original 20%</strong> &mdash; customers and competitors will see through it, and it adds pressure you don't need. It's stronger to say plainly "we use this because it's the best in the market &mdash; it's how we use it that makes the difference."</p></div>
+    <div class="callout callout-purple"><p><strong>Congruence test:</strong> don't take a product or service to market you aren't personally committed to as an expression of your own identity &mdash; the market can tell.</p></div>
+  </section>
+
+  <section class="section" id="p7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Choreography Is 50% of the Model</div><div class="section-subtitle">How you walk someone through it matters as much as what's in it</div></div></div>
+    <div class="card"><p>A Genius Model is <strong>50% design, 50% choreography</strong>. Drawing a model live, freehand, is more powerful than a slide deck &mdash; it's organic, it draws people in, and every stroke is proof you actually know the material.</p></div>
+    <div class="quote-block"><p>"We live in a believability crisis because of AI. I'm not sure trust is the currency of the market anymore &mdash; it's believability. Showing my thinking live, in front of you, on a blank page, is how you earn that."</p></div>
+  </section>
+
+  <section class="section" id="p8">
+    <div class="section-header"><span class="section-num">08</span><div><div class="section-title">The Red / Amber / Green Close</div><div class="section-subtitle">A sales mechanic that never requires talking about yourself</div></div></div>
+    <div class="card card-accent"><p>Walk a customer through the model without ever pitching. At the end, ask them to self-rate red/amber/green against each accelerator around the outside. Once they've rated themselves, the close is simply: <strong>"what would it mean for you if we could turn all of those to green?"</strong> You've surfaced the gaps and made the implicit promise, without a hard pitch.</p></div>
+    <div class="script-block">
+      <span class="script-label">Worked example &mdash; a price objection dissolving</span>
+      <p>Rather than stacking "wow" reactions, ask: "what would it mean for you if these three things were true?" The client answers emotionally, and the price resistance evaporates because the conversation has reached the actual ache, not just the surface symptom.</p>
+    </div>
+  </section>
+
+  <section class="section" id="p9" style="border-bottom:none;">
+    <div class="section-header"><span class="section-num">09</span><div><div class="section-title">Internal Alignment &mdash; Not Marketing &mdash; Is the Model's Real Power</div><div class="section-subtitle">Prevents genius dilution as the team grows</div></div></div>
+    <div class="card"><p>Genius always dilutes as a business grows, because new hires default to teaching whatever they already know how to teach &mdash; not necessarily what the founder actually built. A model gives the team an observable framework to be held accountable to. Show it to clients every time you teach something, so referrals become "you should work with them because of their model," not just "they're great."</p></div>
+    <p style="font-size:14px;color:var(--text-muted);">One model per business, even at large scale. Different stages of client maturity can exist as <em>layers inside</em> the same model instead of three separate models.</p>
+  </section>
+
+  <section class="section" id="bmr" style="border-top:1px solid var(--border);">
+    <div class="section-header"><span class="section-num">&bull;</span><div><div class="section-title">BMR Application</div><div class="section-subtitle">Where this maps onto Alex's real problem and BMR's positioning</div></div></div>
+    <div class="card card-accent"><p><strong>Find the actual ache, not the known problem:</strong> "I've got a porn problem" is the known problem. "I feel ashamed and isolated" is closer to hidden. The real ache is likely something closer to what Alex's profile already names -- he's "done lying to himself" -- possibly a 3-word version like <em>"I want to trust myself again."</em> Worth testing this directly against real language men use when they describe why they're finally looking for help, not what they say the problem is.</p></div>
+    <div class="card card-accent"><p><strong>Completeness of thinking over uniqueness directly validates the locked "Practical" brand word:</strong> BMR's edge was never "the only program that works" -- it's pulling together NLH, neuroscience, and a real day-to-day process into one practical thing, rather than claiming to be the sole answer. This gives Steve a specific way to talk about it: "here's a perspective that pulls together what actually works," not "here's the only way."</p></div>
+    <div class="card card-accent"><p><strong>Red/Amber/Green as the closing mechanic for the Driver's Seat assessment:</strong> the pending quiz/assessment tool on the website (already locked as a real, live feature, not vaporware) is a natural fit for this exact mechanic -- self-rate against a few plain markers (are you the passenger or the driver on this), then close with "what would it mean if all of these were green" rather than a hard pitch.</p></div>
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Notes from the July Intensive 2026 (Thailand) &middot; Sensei Session. <a href="https://blackbeltmembers.com/sensei-session-the-genius-in-your-model-with-simon-bowen/" target="_blank">Watch the original &nearr;</a></span>
+  <span class="footer-note"><a href="bmr-july-intensive-thailand.html">&larr; Back to Intensive</a> &middot; <a href="bmr-blackbelt-hub.html">BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>

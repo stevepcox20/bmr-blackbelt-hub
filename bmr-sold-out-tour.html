@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sold Out Tour -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+    --red-faint: rgba(220,50,50,0.07); --red-border: rgba(220,50,50,0.2);
+    --green-faint: rgba(30,160,90,0.08); --green-border: rgba(30,160,90,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface); color: var(--text); font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.65; }
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 6px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+  .main { min-width: 0; }
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 24px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 18px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+  .script-block { background: var(--purple-tint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; }
+  .script-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 10px; display: block; }
+  .script-block p { font-size: 13.5px; line-height: 1.7; color: var(--text); margin: 0; font-style: italic; }
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .timeline-phases { display: flex; gap: 0; position: relative; margin-bottom: 16px; }
+  .timeline-phases::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--border-strong), var(--orange), var(--border-strong)); z-index: 0; }
+  .phase-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; z-index: 1; padding: 0 6px; }
+  .phase-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; }
+  .phase-name { font-size: 13px; font-weight: 700; color: var(--purple); }
+  .phase-sub { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  .pillar-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; border-top: 3px solid var(--orange); }
+  .pillar-item .pillar-name { font-size: 15px; font-weight: 700; color: var(--purple); margin-bottom: 8px; }
+  .pillar-item .pillar-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .rank-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .rank-item { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .rank-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rank-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; opacity: 1; }
+  .rank-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; } .grid-2, .grid-3, .pillars-grid { grid-template-columns: 1fr; }
+    .timeline-phases { flex-direction: column; gap: 14px; } .timeline-phases::before { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt · July Intensive 2026 · Thailand</span>
+    <div class="title">The Sold Out Tour &mdash; Taki Moore</div>
+    <a href="bmr-july-intensive-thailand.html" class="back-link">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Intensive
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">Why This Framework</span>
+    <li><a href="#p1">1. The Science of Yay</a></li>
+    <li><a href="#p2">2. Singles, Albums, Tours</a></li>
+    <li><a href="#p3">3. Presence, Not Secrets</a></li>
+    <li><a href="#p4">4. Make / Market / Meet Time</a></li>
+    <span class="nav-section">Building It</span>
+    <li><a href="#p5">5. Daily Demos</a></li>
+    <li><a href="#p6">6. Sticky Singles (Pocket Banger)</a></li>
+    <li><a href="#p7">7. Building a Real Album</a></li>
+    <li><a href="#p8">8. The Tour Itself</a></li>
+    <li><a href="#p9">9. The Drop (Format Decision)</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#bmr">BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt · July Intensive 2026 · Thailand · Day 1.2 · Taki Moore</div>
+    <h1>The Sold Out Tour &mdash; Make a Record So Good the Tour Sells Itself</h1>
+    <p class="hero-desc">Taki's own flagship framework from the Thailand intensive: content as singles, a monthly body of work as an album, and the live paid offer as the tour. The core reversal &mdash; stop gatekeeping the good stuff. There are no secrets left in the AI era; what people actually buy now is presence.</p>
+    <a href="https://blackbeltmembers.com/the-sold-out-tour/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the original (Black Belt Members site)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">~$2M/mo</span><span class="label">Current revenue, sold out 12 months straight</span></div>
+      <div class="hero-stat"><span class="num">3</span><span class="label">Things true at every real growth spurt</span></div>
+      <div class="hero-stat"><span class="num">2 wks/mo</span><span class="label">Dedicated to building one complete album</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="p1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">The Science of Yay</div><div class="section-subtitle">Reverse-engineering your own growth timeline</div></div></div>
+    <div class="card"><p>Taki plotted his own business timeline and asked, for each real jump in growth, "what happened right before this?" Four growth phases, each triggered by something specific -- a book that led to an event that led to a matching program; a pivot forced by circumstance where being first to speak honestly won trust; guest-to-client events; and most recently, monthly paid workshops plus YouTube.</p></div>
+    <div class="quote-block"><p>"Each growth phase started when three things were true: I had some maker time to figure out what was true and real. Because of that, the content I made was honest and useful for the moment. And I wasn't selling a program &mdash; I was inviting people to something I was personally convicted was awesome, right now."</p></div>
+    <div class="callout"><p><strong>The flat periods were the exact opposite:</strong> always-on, no time to create, content going vanilla because there was nothing exciting happening to draw from, and pitching started to feel like selling a product instead of an invitation.</p></div>
+    <p style="font-size:13.5px;color:var(--text-muted);">The exercise he ran live: sketch your own timeline, mark the real growth spurts, and identify what you started, stopped, or made just before each one.</p>
+  </section>
+
+  <section class="section" id="p2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">Singles, Albums, Tours</div><div class="section-subtitle">The core framework of the session</div></div></div>
+    <div class="pillars-grid">
+      <div class="pillar-item"><div class="pillar-name">Single</div><div class="pillar-desc">A dangerous idea (a contrarian take) with a catchy tune (a hook + build, said as a soundbite). Plays for free on "the radio" &mdash; every social channel &mdash; and lives rent-free in their head. You know it's landed when prospects start repeating your own phrases back at you.</div></div>
+      <div class="pillar-item"><div class="pillar-name">Album</div><div class="pillar-desc">A complete body of work about one real, true-right-now topic. Priced free or as an impulse buy. Consuming it should make someone want to spend more time and money with you.</div></div>
+      <div class="pillar-item"><div class="pillar-name">Tour</div><div class="pillar-desc">The live, high-ticket experience. Same songs as the album &mdash; not new, unheard material &mdash; delivered in a way only live can do. This is the actual coaching program/offer.</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="p3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">Presence, Not Secrets</div><div class="section-subtitle">Stop gatekeeping &mdash; there are no secrets left</div></div></div>
+    <div class="quote-block"><p>"In the old days we sold secrets &mdash; we had the answer, they didn't, so come pay me to learn it. There are no secrets anymore. If I'm 59 or younger, I'm asking Claude or ChatGPT, or I'm on YouTube. What people buy now is presence, not secrets."</p></div>
+    <div class="card card-accent"><p>Why someone still goes to a concert even though they could stream the album: they want to hear the songs they already know, sung live, with the artist in the room. The tour isn't a shrunk-down, censored version of the album &mdash; it's the identical material delivered in a way that can only happen live.</p></div>
+    <div class="callout"><p><strong>"Relevance is like rent. You have to pay it every month, or you get evicted from people's minds and their wallets."</strong></p></div>
+  </section>
+
+  <section class="section" id="p4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">Make Time / Market Time / Meet Time</div><div class="section-subtitle">The rhythm that replaces "always on"</div></div></div>
+    <div class="timeline-phases">
+      <div class="phase-item"><div class="phase-dot">M</div><div class="phase-name">Make Time</div><div class="phase-sub">In the studio, laying down songs &mdash; "making bangers"</div></div>
+      <div class="phase-item"><div class="phase-dot">M</div><div class="phase-name">Market Time</div><div class="phase-sub">Promoting the record &mdash; "making bank"</div></div>
+      <div class="phase-item"><div class="phase-dot">M</div><div class="phase-name">Meet Time</div><div class="phase-sub">Fully unplugged, off &mdash; "making babies"</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);">Same cycle athletes and touring musicians run &mdash; game day, training, off-season. Being always-on is what makes content go vanilla and eventually burns founders out.</p>
+  </section>
+
+  <section class="section" id="p5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">Daily Demos</div><div class="section-subtitle">See something &rarr; Make something &rarr; Say something</div></div></div>
+    <div class="card"><p>Not every piece of content needs to be good on the first try &mdash; the goal is volume of reps. Cited study: two pottery classes, one told to make the single best pot of the semester, the other told to make as many pots as possible. The quantity group made <em>more and better</em> pots, because more attempts beat one precious attempt.</p></div>
+    <div class="rank-list">
+      <div class="rank-item"><div class="rank-num">1</div><div><h4>See something</h4><p>Practical version: once a week (or daily), scroll back through your own camera roll from the last week or two and look for anything that sparked a flicker of interest. Don't try to force new ideas from nothing.</p></div></div>
+      <div class="rank-item"><div class="rank-num">2</div><div><h4>Make something</h4><p>Connect what you noticed to your prospects, your business, or your market.</p></div></div>
+      <div class="rank-item"><div class="rank-num">3</div><div><h4>Say something</h4><p>Ship a piece of content built from that connection &mdash; the same day, while it's fresh.</p></div></div>
+    </div>
+    <div class="callout"><p><strong>Speed matters:</strong> "the longer the gap between I see something and I say something, the shittier it gets." Do it hot, not batched days later.</p></div>
+  </section>
+
+  <section class="section" id="p6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">Sticky Singles &mdash; The Pocket Banger</div><div class="section-subtitle">Turning a raw daily demo into something polished</div></div></div>
+    <div class="script-block">
+      <span class="script-label">Every banger piece of content has four parts</span>
+      <p><strong>Hook</strong> (grabs attention) &rarr; <strong>Build</strong> (the story or list of steps) &rarr; <strong>Payoff</strong> (the punchline) &rarr; <strong>Invitation</strong> (the explicit next action/CTA).</p>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);">Take your best daily demos, keep the ones with legs, and polish them into this structure rather than starting every piece of content from a blank page.</p>
+  </section>
+
+  <section class="section" id="p7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Building a Real Album</div><div class="section-subtitle">One complete body of work, on a monthly cycle</div></div></div>
+    <div class="card card-accent"><p>His own production cycle: two weeks a month are dedicated to one complete body of work around a single topic &mdash; daily demos, reels, a carousel, videos, all on the same theme, culminating in a paid monthly workshop. The workshop <em>is</em> the album; everything else is raw ingredient and promotion for it.</p></div>
+    <h3 style="font-size:15px;color:var(--purple);margin:20px 0 12px;">Picking the next album &mdash; 4 quick prompts (10 seconds each, first-thought only)</h3>
+    <div class="grid-2">
+      <div class="card"><h4>You</h4><p>What's hot for you right now &mdash; what's working really well in your business at the moment?</p></div>
+      <div class="card"><h4>Clients</h4><p>What are your current clients frothing on right now &mdash; what are they loving that you're doing with them?</p></div>
+      <div class="card"><h4>Market</h4><p>What's everyone talking about, worried about, loving, hating right now?</p></div>
+      <div class="card"><h4>Trend stance</h4><p>Given the trend, are you going to ride it or buck it &mdash; and what does the market need from a leader like you, right now?</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="p8">
+    <div class="section-header"><span class="section-num">08</span><div><div class="section-title">The Tour Itself</div><div class="section-subtitle">What actually makes the live version worth paying more for</div></div></div>
+    <div class="grid-3">
+      <div class="card"><h4>You Live</h4><p>Not just teaching it live &mdash; being in the room, sharing what's genuinely fresh and new right now.</p></div>
+      <div class="card"><h4>Them Singing</h4><p>Customisation &mdash; applying your material to their specific situation, live, in front of you.</p></div>
+      <div class="card"><h4>Us Together</h4><p>The group energy and peer help that simply can't happen over Zoom.</p></div>
+    </div>
+    <div class="callout callout-purple"><p><strong>"Hot Ticket" self-assessment (1-4 scale, two separate questions):</strong> (1) how exciting/hot is your current offer, honestly, right now? (2) separately, regardless of how exciting it actually is &mdash; how good a job are you doing telling people it's exciting? Most attendees scored their offer's actual quality higher than their communication of that quality &mdash; the gap to close is usually promotion, not the product.</p></div>
+  </section>
+
+  <section class="section" id="p9" style="border-bottom:none;">
+    <div class="section-header"><span class="section-num">09</span><div><div class="section-title">The Drop &mdash; Deciding the Album's Format</div><div class="section-subtitle">Three quick decisions before you start creating</div></div></div>
+    <div class="grid-3">
+      <div class="card"><h4>Format</h4><p>Written, Audio, Video, or Live. Pick whichever matches your actual strength, not what's trendy.</p></div>
+      <div class="card"><h4>Pricing</h4><p>Free or cheap. Rule of thumb: high demand &rarr; charge for it. Low demand &rarr; give it away free to build demand first.</p></div>
+      <div class="card"><h4>Length ("pick a ticket")</h4><p>Minutes, hours, days, or weeks &mdash; matched to how much time people are realistically willing to spend on it.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="bmr" style="border-top:1px solid var(--border); padding-top:48px;">
+    <div class="section-header"><span class="section-num">&bull;</span><div><div class="section-title">BMR Application</div><div class="section-subtitle">Where this maps directly onto the BMR content system</div></div></div>
+    <div class="card card-accent"><p><strong>Singles/Albums/Tours is already the shape of BMR's weekly system:</strong> the daily posts (Connection/Character/Coaching/Flex+CTA/Easy) are singles, the full week's arc around one audience Question is the album, and The Relationship Rescue itself is the tour -- the live, paid, presence-based delivery of material that's already been given away in the free content. Naming this explicitly makes it easier to judge whether a given week is actually a coherent "album" or just five disconnected singles.</p></div>
+    <div class="card card-accent"><p><strong>Daily Demos is the exact mechanic behind the locked "the answer can come from anywhere" rule.</strong> BMR already says Monday/Tuesday/Friday content can pull from a personal story, something Chez said, a movie, a sporting moment. Taki's practice -- scroll the camera roll from the last week or two for whatever sparked a flicker of interest -- is a concrete, lightweight habit Steve could run weekly to source that content, rather than needing a fresh idea from nothing each time.</p></div>
+    <div class="card card-accent"><p><strong>Presence, not secrets validates the Companion Copy / video approach:</strong> giving away the real mechanism in every post doesn't cannibalise The Relationship Rescue -- what Alex pays for is Steve's direct process and presence, not information he couldn't get free. This is independent confirmation the current instinct (real conversation, not gatekept teasers) is the right one.</p></div>
+    <div class="card card-accent"><p><strong>Hot Ticket self-score is a useful gut-check for the sales page:</strong> given the still-open Offer Diamond items (the [DATE] placeholder, the payment-parity flag) and the sales page not yet live, this is a concrete question worth asking before launch -- is the program itself under-communicated, or is there a genuine gap in the offer? Worth running honestly before assuming the fix is more content rather than clearer communication.</p></div>
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Notes from the July Intensive 2026 (Thailand). <a href="https://blackbeltmembers.com/the-sold-out-tour/" target="_blank">Watch the original &nearr;</a></span>
+  <span class="footer-note"><a href="bmr-july-intensive-thailand.html">&larr; Back to Intensive</a> &middot; <a href="bmr-blackbelt-hub.html">BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>

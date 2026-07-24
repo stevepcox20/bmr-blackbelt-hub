@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Encore Effect with Joanna Martin -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+    --red-faint: rgba(220,50,50,0.07); --red-border: rgba(220,50,50,0.2);
+    --green-faint: rgba(30,160,90,0.08); --green-border: rgba(30,160,90,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface); color: var(--text); font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.65; }
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 6px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+  .main { min-width: 0; }
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 24px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 18px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .card-dark { background: var(--purple); border-color: transparent; }
+  .card-dark h4 { color: var(--orange); opacity: 1; }
+  .card-dark p { color: rgba(255,255,255,0.85); }
+  .card-dark strong { color: #fff; }
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+  .script-block { background: var(--purple-tint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; }
+  .script-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 10px; display: block; }
+  .script-block p { font-size: 13.5px; line-height: 1.7; color: var(--text); margin: 0; font-style: italic; }
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+  .rank-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .rank-item { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .rank-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rank-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; opacity: 1; }
+  .rank-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; } .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt · July Intensive 2026 · Thailand</span>
+    <div class="title">The Encore Effect &mdash; Joanna Martin</div>
+    <a href="bmr-july-intensive-thailand.html" class="back-link">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Intensive
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">Structural (1-8)</span>
+    <li><a href="#p1">1. Heal the Schism</a></li>
+    <li><a href="#p2">2. The Chekhov Principle</a></li>
+    <li><a href="#p3">3. Law of Familiarity</a></li>
+    <li><a href="#p4">4. Work Backwards From No</a></li>
+    <li><a href="#p5">5. The Identity Effect</a></li>
+    <li><a href="#p6">6. Trinity of Proof</a></li>
+    <li><a href="#p7">7. Always Be Teasing</a></li>
+    <li><a href="#p8">8. Right Ambience</a></li>
+    <span class="nav-section">Energetic (9-12)</span>
+    <li><a href="#p9">9. Play Simon Says</a></li>
+    <li><a href="#p10">10. Push the Limits</a></li>
+    <li><a href="#p11">11. Emotional Resonance</a></li>
+    <li><a href="#p12">12. The Oxytocin Hit</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#bmr">BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt · July Intensive 2026 · Thailand · Sensei Session · Day 2.2.4</div>
+    <h1>The Encore Effect &mdash; 12 Principles for Getting a Room to <em>Come Back for More</em></h1>
+    <p class="hero-desc">Joanna Martin (ex-med student, theatre director, then $63k-to-8-figure event strategist) breaks down what separates events and sales presentations that build long-term retention from ones that just perform well on the day. Eight structural principles for designing the content, four energetic principles for running the room.</p>
+    <a href="https://blackbeltmembers.com/sensei-session-the-encore-effect-with-joanna-martin/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the original (Black Belt Members site)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">12</span><span class="label">Principles, 8 structural + 4 energetic</span></div>
+      <div class="hero-stat"><span class="num">80%</span><span class="label">Of selling happens before the pitch</span></div>
+      <div class="hero-stat"><span class="num">~10 min</span><span class="label">Max before a state change is needed</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="p1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">Heal the Schism (Mindset)</div><div class="section-subtitle">Teaching and selling aren't two different modes</div></div></div>
+    <div class="card card-accent">
+      <p>Many coaches feel a split between "I am delivering content" and "now I am selling" &mdash; and the audience feels that shift too. Done well, if you aren't literally naming the program in that moment, the room doesn't perceive it as selling. <strong>80% of the heavy lifting happens in the content delivered before the offer</strong>, not in the pitch itself.</p>
+    </div>
+    <div class="quote-block"><p>"You can't change someone's life in a single weekend &mdash; it's egotistical to think we can. In 20-odd years speaking to close to half a million people, I've had maybe 10 messages saying a single talk changed their life. Your job is to always be earning the right to continue helping them."</p></div>
+    <div class="callout"><p><strong>The fire-hose trap:</strong> a webinar or talk gets rebuilt over years, and every new thing you learn gets added rather than replacing something. Eventually one webinar is secretly three webinars stacked on top of each other. Give just enough for an immediate small win &mdash; that's what earns the right to the next conversation.</p></div>
+  </section>
+
+  <section class="section" id="p2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">The Chekhov Principle</div><div class="section-subtitle">Every element must further rapport, transformation, or the sale</div></div></div>
+    <div class="quote-block"><p>"If in the first act you've hung a pistol on the wall, it must be fired in a later one &mdash; otherwise it shouldn't be there." &mdash; Anton Chekhov, playwright</p></div>
+    <div class="card"><p>A well-crafted event has no element that doesn't further plot (rapport), character (transformation), or theme (the sale). Most people's content is not "too much" &mdash; the actual problem is <strong>too much confusion</strong>. Design events well in advance, not in the 48 hours before.</p></div>
+  </section>
+
+  <section class="section" id="p3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">The Law of Familiarity</div><div class="section-subtitle">Demonstrate every part of the offer before you name it</div></div></div>
+    <div class="card"><p>Before you get to the pitch, make sure you've already shown or done every component that's actually inside the program. If the first time the room hears a term is during the pitch, they have no emotional relevancy to attach to it. When you later say "we'll do that for you," it should refer back to something they watched happen minutes earlier.</p></div>
+  </section>
+
+  <section class="section" id="p4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">Work Backwards From No</div><div class="section-subtitle">They've already said yes to being in the room &mdash; this is concern-handling</div></div></div>
+    <div class="card card-accent"><p>Anyone in the room or on the webinar has already said yes once. From here it's pure objection-handling. Brainstorm every objection &mdash; generic ones (time, money) and the specific ones unique to your niche &mdash; then teach content that resolves each one <strong>as good advice, not as concern-handling for the program</strong>.</p></div>
+    <div class="grid-2">
+      <div class="card"><h4>Generic objections</h4><p>Time and money apply to almost everyone. Teach a prioritisation talk and an investment-mindset talk; that alone gets you most of the way there.</p></div>
+      <div class="card"><h4>Niche-specific objections</h4><p>Identify the objections unique to your audience and teach content that resolves each one directly, well before the pitch -- not as a rebuttal, but as genuinely useful advice on its own.</p></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text-muted);">Case studies are one of the strongest objection-handling tools &mdash; seed in that the person in the story had the exact same objection, then show what changed.</p>
+  </section>
+
+  <section class="section" id="p5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">The Identity Effect</div><div class="section-subtitle">People rarely act outside their own self-identity</div></div></div>
+    <div class="callout callout-purple"><p><strong>The question to write down:</strong> "What identity does this person need to have about themselves to participate with me &mdash; to buy, or to stay long-term? And how do I demonstrate that they already are that person, or create that identity shift for them in the room?"</p></div>
+    <div class="card"><p>Content has to prove someone is the kind of person who can act, before the offer lands &mdash; either by showing them evidence they already are, or by creating a live identity shift in the room.</p></div>
+  </section>
+
+  <section class="section" id="p6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">The Trinity of Proof</div><div class="section-subtitle">Three beliefs required before anyone does something new</div></div></div>
+    <div class="rank-list">
+      <div class="rank-item"><div class="rank-num">1</div><div><h4>The teacher can do it</h4><p>Built with credibility stories &mdash; your origin story, your results, told in detail so people who don't know you learn to trust you.</p></div></div>
+      <div class="rank-item"><div class="rank-num">2</div><div><h4>Others can do it</h4><p>Built with case studies (full stories) and vignettes (a name + one detail, no full story) dropped in throughout the teaching.</p></div></div>
+      <div class="rank-item"><div class="rank-num">3</div><div><h4>I can do it</h4><p>The hardest one to prove. Give them a real win inside the room itself &mdash; get them to actually do a piece of it while you're there.</p></div></div>
+    </div>
+    <div class="script-block">
+      <span class="script-label">Case study structure</span>
+      <p>Before picture + how they felt &rarr; the objection they had going in &rarr; which specific piece of content made the difference &rarr; after picture + how they feel now &rarr; link it back to the content you just taught.</p>
+    </div>
+    <div class="callout"><p><strong>Vignettes</strong> are the spoken-word equivalent of a wall of testimonials &mdash; just a name/handle and a small detail dropped in passing. No full story needed; people remember the detail and repeat it back afterwards.</p></div>
+  </section>
+
+  <section class="section" id="p7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Always Be Teasing</div><div class="section-subtitle">Build the emotional need across the whole event, peak right before the offer</div></div></div>
+    <div class="card"><p>Same mechanic as early dating &mdash; small escalating signals of what's possible, not one big reveal. A program name that doubles as a usable verb/noun helps, used repeatedly through the day.</p></div>
+  </section>
+
+  <section class="section" id="p8">
+    <div class="section-header"><span class="section-num">08</span><div><div class="section-title">Create the Right Ambience</div><div class="section-subtitle">Three energies in the room: you, the audience, and the frame</div></div></div>
+    <div class="grid-2">
+      <div class="card"><h4>Room setup &amp; flow</h4><p>Control which doors are usable so the path out of the room passes the service desk. Power positions on stage matched to content type. In a small room, sell before the break &mdash; social proof works against you once people leave and talk themselves out of it.</p></div>
+      <div class="card"><h4>Pacing</h4><p>The pitch content chunk should be the shortest chunk, not the longest &mdash; most people over-stuff it trying to add "one more bit of value" and the actual close goes flat.</p></div>
+    </div>
+    <div class="quote-block"><p>"Don't underestimate well-crafted music. Turn the music up. If people are dancing and having a good time, they buy."</p></div>
+  </section>
+
+  <section class="section" id="p9">
+    <div class="section-header"><span class="section-num">09</span><div><div class="section-title">Play "Simon Says"</div><div class="section-subtitle">Rapport = trust + responsiveness &mdash; keep testing and building it</div></div></div>
+    <div class="card"><p>Constantly check responsiveness: get people writing things down, turning to a neighbour, raising a hand. By the time you say "come buy," the room is already conditioned to comply because you've built the pattern all session.</p></div>
+  </section>
+
+  <section class="section" id="p10">
+    <div class="section-header"><span class="section-num">10</span><div><div class="section-title">Always Be Pushing the Limits</div><div class="section-subtitle">Comfort zones don't produce buying action</div></div></div>
+    <div class="callout callout-purple"><p>People in a comfort zone don't move beyond it. Design exercises that stretch people past their comfort zone while the room still feels safe &mdash; and only push as hard as your ability to hold that safety, or you fracture your own leadership.</p></div>
+    <p style="font-size:14px;color:var(--text-muted);">Her stated rule of thumb: visible emotion in the room &mdash; including tears &mdash; reads as a buying signal.</p>
+  </section>
+
+  <section class="section" id="p11">
+    <div class="section-header"><span class="section-num">11</span><div><div class="section-title">Create Deep Emotional Resonance</div><div class="section-subtitle">Feelings move people, not intellectual understanding</div></div></div>
+    <div class="card"><p>Sales lift when content moves from the logic layer (the model, the framework) into the emotional layer. Elicit the highs and the lows in the room &mdash; through journaling, sharing with a neighbour, or guided visualisation. Feeling deeply while feeling safe raises trust, which raises sales.</p></div>
+  </section>
+
+  <section class="section" id="p12" style="border-bottom:none;">
+    <div class="section-header"><span class="section-num">12</span><div><div class="section-title">The Oxytocin Hit</div><div class="section-subtitle">Belonging is the real retention mechanism</div></div></div>
+    <div class="quote-block"><p>"Belonging is going to be the core of coaching businesses in the AI era. When information is free everywhere, how do we even survive as coaches? Through creating communities of belonging."</p></div>
+    <div class="card"><p>The renewal driver isn't the curriculum &mdash; it's a space where someone can be fully themselves without filtering, feel accepted, and feel they can contribute to others. The bigger, shared mission is what people stay in the room for.</p></div>
+  </section>
+
+  <section class="section" id="bmr" style="border-top:1px solid var(--border);">
+    <div class="section-header"><span class="section-num">&bull;</span><div><div class="section-title">BMR Application</div><div class="section-subtitle">Where this maps onto the CTA audit rule and the modules themselves</div></div></div>
+    <div class="card card-accent"><p><strong>Law of Familiarity independently validates the locked CTA audit rule.</strong> The homepage incident (a "Start Relationship Rescue" CTA appearing before the brand name had been introduced) is exactly the failure mode Joanna describes -- naming something before the room has any emotional relevancy to attach to it. This is a second, independent framework landing on the same conclusion: demonstrate before you name.</p></div>
+    <div class="card card-accent"><p><strong>The Identity Effect maps directly onto BMR's identity-level methodology.</strong> Alex doesn't need convincing that change is possible in the abstract -- he needs proof, inside the content, that he can become the kind of man who's already doing it. That's the same job MUD/Essentia and "be it until you see it" are already doing. Worth naming this explicitly as the actual mechanism behind why identity-first framing (not behaviour-first) is the right call for BMR content.</p></div>
+    <div class="card card-accent"><p><strong>Trinity of Proof structures where BMR's existing proof points should sit:</strong> the teacher can do it (Steve's own recovery being the authority behind the methodology, used carefully per the guardrail on not generating personal content unprompted), others can do it (client wins, once they exist), and I can do it (a real, small win inside a lead magnet or the Driver's Seat assessment itself).</p></div>
+    <div class="card card-accent"><p><strong>The oxytocin hit / belonging validates The Redeemed Club</strong> as more than a retention afterthought -- it's the actual renewal mechanism once the curriculum has been delivered, which lines up with why "Thriving Community" is its own branded blue outcome rather than a bonus tacked onto the modules.</p></div>
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Notes from the July Intensive 2026 (Thailand) &middot; Sensei Session. <a href="https://blackbeltmembers.com/sensei-session-the-encore-effect-with-joanna-martin/" target="_blank">Watch the original &nearr;</a></span>
+  <span class="footer-note"><a href="bmr-july-intensive-thailand.html">&larr; Back to Intensive</a> &middot; <a href="bmr-blackbelt-hub.html">BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>July Intensive 2026 (Thailand) -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58;
+    --purple-light: #41A687;
+    --purple-faint: #E7F1EC;
+    --purple-tint: #DCEAE3;
+    --orange: #FF735D;
+    --orange-faint: #FFEDE9;
+    --pink: #FF735D;
+    --teal: #41A687;
+    --ground: #EFECE5;
+    --surface: #FFFFFF;
+    --text: #1E2F24;
+    --text-muted: #5b6b62;
+    --border: rgba(42,107,88,0.15);
+    --border-strong: rgba(42,107,88,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .site-header { background: var(--purple); padding: 48px 52px 40px; position: relative; overflow: hidden; }
+  .site-header::after { content: ''; position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .header-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 12px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 18px; }
+  .back-link:hover { color: #fff; }
+  .site-header h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
+  .site-header p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.7; }
+
+  .page-content { max-width: 1100px; margin: 0 auto; padding: 48px 52px; }
+
+  .hub-callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 18px 22px; margin-bottom: 40px; display: flex; align-items: flex-start; gap: 14px; }
+  .hub-callout .callout-icon { width: 36px; height: 36px; background: rgba(255,115,93,0.15); border: 1px solid rgba(255,115,93,0.3); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hub-callout .callout-icon svg { width: 18px; height: 18px; stroke: var(--orange); fill: none; }
+  .hub-callout p { font-size: 14px; color: var(--text); line-height: 1.65; margin: 0; }
+  .hub-callout strong { color: var(--orange); font-weight: 700; }
+
+  .section-label { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .section-label h2 { font-size: 20px; font-weight: 800; color: var(--purple); letter-spacing: -0.01em; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .sessions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .session-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 14px; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; position: relative; }
+  .session-card:hover { border-color: var(--border-strong); box-shadow: 0 4px 20px rgba(42,107,88,0.1); transform: translateY(-2px); }
+  .session-card.available { border-color: var(--border-strong); }
+  .session-card.available:hover { border-color: var(--orange); }
+  .session-card .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .session-card .day-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); background: rgba(42,107,88,0.08); padding: 3px 8px; border-radius: 4px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); flex-shrink: 0; }
+  .status-dot.live { background: #2ba84a; }
+  .session-card h3 { font-size: 16px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .session-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; flex: 1; }
+  .session-card .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--purple); background: var(--purple-faint); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+  .tag-orange { color: var(--orange); background: var(--orange-faint); border-color: rgba(255,115,93,0.25); }
+  .session-card .read-more { font-size: 12px; font-weight: 600; color: var(--orange); display: flex; align-items: center; gap: 5px; }
+
+  .site-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px 52px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .site-footer p { font-size: 12px; color: var(--text-muted); }
+  .site-footer a { font-size: 12px; color: var(--orange); text-decoration: none; font-weight: 600; }
+  .site-footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 700px) {
+    .site-header, .page-content, .site-footer { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </symbol>
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/>
+    <polyline points="12 19 5 12 12 5"/>
+  </symbol>
+</svg>
+
+<header class="site-header">
+  <a href="bmr-blackbelt-hub.html" class="back-link">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to BMR Black Belt Hub
+  </a>
+  <div class="header-eyebrow">Better Man Recovery &middot; Black Belt Live Event</div>
+  <h1>July Intensive 2026 -- Thailand</h1>
+  <p>Six sessions from the Black Belt Thailand intensive, distilled and translated for Better Man. Same event Steve's SMC hub covers -- this version pulls out what actually applies to Alex, the content system, and the launch.</p>
+</header>
+
+<div class="page-content">
+
+  <div class="hub-callout">
+    <div class="callout-icon"><svg><use href="#icon-book"/></svg></div>
+    <p><strong>How to use this page:</strong> Every session from the Thailand intensive lands here under one card on the main hub instead of cluttering the general Sessions grid. Each page keeps the original speaker's framework intact, then translates it for BMR at the bottom -- never the other way around.</p>
+  </div>
+
+  <a href="bmr-july-intensive-summary.html" style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--purple);border-radius:10px;padding:22px 26px;margin-bottom:36px;text-decoration:none;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;">5-Minute Read</div>
+      <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">Executive Summary -- Key Themes &amp; What They Mean for BMR</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);">All 6 sessions condensed into 5 cross-cutting themes, each tied to a concrete BMR action.</div>
+    </div>
+    <div style="flex-shrink:0;color:var(--orange);font-weight:700;font-size:14px;">Read it &rarr;</div>
+  </a>
+
+  <div class="section-label">
+    <h2>Sessions</h2>
+  </div>
+
+  <div class="sessions-grid">
+
+    <a href="bmr-digital-leverage-maria-wendt.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 2.1</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>Digital Leverage with Maria Wendt</h3>
+      <p>$63 in year one to $1M/month, working two days a week. The content-creator identity shift, the one non-negotiable, the three rules (one platform, zero editing, tutorials + taboo), the workflow ladder, and the views-to-followers metric that drives every repurposing decision.</p>
+      <div class="card-tags">
+        <span class="tag">Simplicity</span>
+        <span class="tag-orange">Views/Followers Ratio</span>
+        <span class="tag">Tutorials + Taboo</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+    <a href="bmr-scale-with-scissors-laura-higgins.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 2.2.1</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>Scale with Scissors with Laura Higgins</h3>
+      <p>Growth comes from cutting, not adding. Finding the one real number to optimise for, ditching the "shoulds," the burnout &amp; active recovery story, greatest-hits rotation over new-content-every-cycle, and the Money/Energy matrix exercise.</p>
+      <div class="card-tags">
+        <span class="tag">Money/Energy Matrix</span>
+        <span class="tag-orange">Greatest Hits Rotation</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+    <a href="bmr-youtube-secrets-ali-abdaal.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 2.2.2</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>YouTube Secrets with Ali Abdaal</h3>
+      <p>Play the value game, not the views game. Concept-first video planning, the 80/20 ideal-client-vs-broad-reach split, title/thumbnail packaging, open loops, UTM-tracking every video description, and screen-sharing a lead magnet in every video.</p>
+      <div class="card-tags">
+        <span class="tag">Value &gt; Views</span>
+        <span class="tag-orange">UTM Tracking</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+    <a href="bmr-genius-in-your-model-simon-bowen.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 2.2.3</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>The Genius in Your Model with Simon Bowen</h3>
+      <p>Why "how" beats "why," and uniqueness is commoditized. The three levels of problem (known, hidden, the ache), the Futures Model, the 20/80 create/curate split, choreography, and the Red/Amber/Green close.</p>
+      <div class="card-tags">
+        <span class="tag">Completeness &gt; Uniqueness</span>
+        <span class="tag-orange">The Ache</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+    <a href="bmr-encore-effect-joanna-martin.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 2.2.4</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>The Encore Effect with Joanna Martin</h3>
+      <p>12 principles for getting a room to come back for more -- 8 structural (heal the schism, the Chekhov Principle, the Identity Effect, the Trinity of Proof) and 4 energetic (ambience, rapport, pushing the limits, belonging).</p>
+      <div class="card-tags">
+        <span class="tag">Trinity of Proof</span>
+        <span class="tag-orange">Identity Effect</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+    <a href="bmr-sold-out-tour.html" class="session-card available">
+      <div class="card-meta">
+        <span class="day-badge">Day 1.2</span>
+        <span class="status-dot live" title="Notes available"></span>
+      </div>
+      <h3>The Sold Out Tour with Taki Moore</h3>
+      <p>Taki's flagship framework: singles, albums, and tours. The Science of Yay, why there are no secrets left in the AI era, the make/market/meet time rhythm, daily demos, and building one real album a month.</p>
+      <div class="card-tags">
+        <span class="tag">Singles/Albums/Tours</span>
+        <span class="tag-orange">Daily Demos</span>
+      </div>
+      <div class="read-more">Read session notes &#8594;</div>
+    </a>
+
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <p>Better Man Recovery &middot; Private Reference &middot; Not for distribution</p>
+  <a href="https://blackbeltmembers.com" target="_blank">Black Belt Members Site &nearr;</a>
+</footer>
+
+</body>
+</html>

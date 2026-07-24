@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Leverage with Maria Wendt -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+    --red-faint: rgba(220,50,50,0.07); --red-border: rgba(220,50,50,0.2);
+    --green-faint: rgba(30,160,90,0.08); --green-border: rgba(30,160,90,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+
+  .sidebar {
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    background: var(--surface-2); border-right: 1px solid var(--border);
+    padding: 24px 0; display: flex; flex-direction: column;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a {
+    display: block; padding: 7px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4;
+  }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+
+  .main { min-width: 0; }
+
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(32px, 4.5vw, 50px); font-weight: 800; line-height: 1.1; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 560px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 28px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 26px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; margin-bottom: 16px; }
+  .card h3 { font-size: 18px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 20px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 5px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .card-dark { background: var(--purple); border-color: transparent; }
+  .card-dark h4 { color: var(--orange); opacity: 1; }
+  .card-dark p { color: rgba(255,255,255,0.85); }
+  .card-dark strong { color: #fff; }
+
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+
+  .script-block { background: var(--purple-tint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; }
+  .script-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 10px; display: block; }
+  .script-block p { font-size: 13.5px; line-height: 1.7; color: var(--text); margin: 0; font-style: italic; }
+
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+
+  .vs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 8px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); }
+  .vs-header { padding: 12px 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+  .vs-header.old { background: var(--red-faint); color: #c03030; }
+  .vs-header.new { background: var(--green-faint); color: #1a7a50; }
+  .vs-row-old, .vs-row-new { padding: 11px 18px; font-size: 13px; line-height: 1.55; }
+  .vs-row-old { background: rgba(220,50,50,0.04); color: #7a2020; border-bottom: 1px solid rgba(220,50,50,0.07); }
+  .vs-row-new { background: rgba(30,160,90,0.04); color: #1a5030; border-bottom: 1px solid rgba(30,160,90,0.07); }
+
+  .timeline-phases { display: flex; gap: 0; position: relative; }
+  .timeline-phases::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--border-strong), var(--orange), var(--border-strong)); z-index: 0; }
+  .phase-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; z-index: 1; }
+  .phase-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; }
+  .phase-name { font-size: 14px; font-weight: 700; color: var(--purple); }
+  .phase-sub { font-size: 11px; color: var(--text-muted); line-height: 1.5; max-width: 120px; }
+
+  .metrics-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; margin-top: 4px; }
+  .metric-chip { background: var(--purple-faint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 14px 18px; min-width: 110px; }
+  .metric-chip .val { font-size: 22px; font-weight: 800; color: var(--purple); display: block; line-height: 1; margin-bottom: 3px; }
+  .metric-chip .lbl { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+
+  .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+  .pillar-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px; border-top: 3px solid var(--orange); }
+  .pillar-item .pillar-name { font-size: 16px; font-weight: 700; color: var(--purple); margin-bottom: 8px; }
+  .pillar-item .pillar-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  .rank-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .rank-item { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .rank-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rank-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; opacity: 1; }
+  .rank-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  .qa-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin-bottom: 14px; }
+  .qa-item .qa-q { font-size: 13px; font-weight: 700; color: var(--purple); margin-bottom: 8px; display: flex; gap: 8px; }
+  .qa-item .qa-q .qa-tag { flex-shrink: 0; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); padding: 2px 7px; border-radius: 4px; height: fit-content; margin-top: 2px; }
+  .qa-item .qa-a { font-size: 13.5px; color: var(--text); line-height: 1.65; }
+
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; }
+    .grid-2, .grid-3, .pillars-grid { grid-template-columns: 1fr; }
+    .timeline-phases { flex-direction: column; gap: 14px; }
+    .timeline-phases::before { display: none; }
+    .hero-stats { gap: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+</svg>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt · July Intensive 2026 · Thailand</span>
+    <div class="title">Digital Leverage &mdash; Maria Wendt</div>
+    <a href="bmr-july-intensive-thailand.html" class="back-link">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Intensive
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">Framework</span>
+    <li><a href="#leverage">1. The Leverage Problem</a></li>
+    <li><a href="#identity">2. The Identity Shift</a></li>
+    <li><a href="#rules">3. The Three Rules</a></li>
+    <span class="nav-section">System</span>
+    <li><a href="#workflow">4. The Workflow Ladder</a></li>
+    <li><a href="#metric">5. The One Metric</a></li>
+    <li><a href="#delegate">6. What She Won't Delegate</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#qa">7. Rapid-Fire Q&amp;A</a></li>
+    <li><a href="#bmr">8. BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt · July Intensive 2026 · Thailand · Day 2.1</div>
+    <h1>Digital Leverage &mdash; Content Is the <em>Highest-Leverage</em> Asset You Have</h1>
+    <p class="hero-desc">Maria Wendt went from $63 in her first year of coaching to a million-dollar-a-month, low-ticket digital business &mdash; working two days a week, writing every hook herself, with a content team of three or four. Her core idea: most business owners are chasing clients, traffic and talent directly, in an exhausting outward motion. Content creation collapses all three into one input. The whole system runs on simplicity, not sophistication.</p>
+    <a href="https://blackbeltmembers.com/digital-leverage-with-maria-wendt/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the original (56 min, Black Belt Members site)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">$63 &rarr; $1M/mo</span><span class="label">First year to now</span></div>
+      <div class="hero-stat"><span class="num">~1M</span><span class="label">Views per day, all platforms</span></div>
+      <div class="hero-stat"><span class="num">1.5 hrs</span><span class="label">Avg. daily hours on content</span></div>
+      <div class="hero-stat"><span class="num">2 days</span><span class="label">Worked per week</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <section class="section" id="leverage">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <div><div class="section-title">The Leverage Problem</div><div class="section-subtitle">Why media was the only leverage available to her</div></div>
+    </div>
+
+    <div class="card card-accent">
+      <p>Maria learned the concept from Naval Ravikant's <strong>The Almanack of Naval Ravikant</strong>. Naval describes four kinds of leverage a business can pull: <strong>labor</strong> (a team working for you), <strong>capital</strong> (money to deploy), <strong>code</strong> (build software once, sell it forever), and <strong>media</strong> (create once, distribute for free, at scale).</p>
+      <p>Starting out, she had none of the first three &mdash; no team, no capital, no coding skill. <em>Media was the only lever left</em>, and it was also the newest and cheapest one in history: 50 years ago a mass-market ad cost hundreds of thousands of dollars and still couldn't be tracked. Now it's free, in her pocket, and fully measurable.</p>
+    </div>
+
+    <h3 style="font-size:15px;color:var(--purple);margin:24px 0 12px;">What media leverage actually unlocks</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Without it</h4>
+        <p>Feast-or-famine lead flow &mdash; drill for leads, work the leads, close, then dry again. Constant outward chasing: more clients, more traffic, more talent, all as separate battles.</p>
+      </div>
+      <div class="card">
+        <h4>With it</h4>
+        <p>A daily, steady, "drinking from a fire hose" lead flow &mdash; the problem becomes handling too many leads, not finding them. Higher credibility. Better hires (people already know and trust the brand before they apply).</p>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>"Content creation accelerates the process of people trusting you. We do so much on the back end &mdash; VSLs, webinars, email sequences, sales scripts &mdash; to get people to trust us. With content, they come to you piping hot, ready to buy. You're not chasing them down."</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="section" id="identity">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <div><div class="section-title">The Identity Shift</div><div class="section-subtitle">Not a coach, not a business owner &mdash; a content creator</div></div>
+    </div>
+
+    <div class="callout callout-purple">
+      <p><strong>The shift she asks the room to make:</strong> "For the purposes of this conversation, you are not a coach, you're not a business owner &mdash; you are a content creator. That's your job." The identity shift matters because it changes what you protect first when the business is on fire.</p>
+    </div>
+
+    <div class="card">
+      <p>Part of the shift is learning to <strong>regulate your own emotional reaction to business fires</strong> &mdash; team drama, client drama, "legal stuff" &mdash; and stop treating them as more urgent than the upload schedule. Her framing: if you wait for a day with no fires before you create content, that day never comes.</p>
+    </div>
+
+    <h3 style="font-size:15px;color:var(--purple);margin:24px 0 12px;">Her one true non-negotiable</h3>
+    <div class="script-block">
+      <span class="script-label">Verbatim</span>
+      <p>"Content creation is my only non-negotiable. The only thing I will not allow to not happen is me hitting my content schedule. I will hit my upload schedule come hell or high water &mdash; and I mean that."</p>
+    </div>
+    <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:16px;">Proof point: after a 26-hour, 3-flight trip to the Thailand intensive, she went straight from the hotel room to steaming 17 dresses and filming ~70 videos before doing anything else. Also: she once woke at 3am to write scripts for a filming day she'd procrastinated on, rather than miss the shoot.</p>
+
+    <div class="card card-dark">
+      <h4>Why this is "the house burning on fire issue"</h4>
+      <p>Her stated single takeaway for the room: if you are not creating content on a consistent basis, that is the most urgent problem in your business right now &mdash; ahead of anything else competing for your attention.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section" id="rules">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <div><div class="section-title">The Three Rules</div><div class="section-subtitle">What she actually does, mechanically</div></div>
+    </div>
+
+    <div class="rank-list">
+      <div class="rank-item">
+        <div class="rank-num">1</div>
+        <div>
+          <h4>One platform at a time, to 100k, then move</h4>
+          <p>Spreading across five platforms at once means looking "pretty shitty on five" instead of great on one. Go all-in on every feature of one platform until it hits 100k followers/members, then start the next. Pick the platform <strong>you personally consume the most</strong> &mdash; not "where your clients are." She built Facebook group &rarr; email &rarr; Instagram &rarr; YouTube, one at a time, in that order.</p>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">2</div>
+        <div>
+          <h4>Zero editing</h4>
+          <p>Her first ~125,000 YouTube subscribers came from sitting at an iMac, pressing record, pressing stop, uploading &mdash; no editing. Her read: unpolished, unprofessional-looking content builds trust faster because it removes the "production" layer and puts all the attention on what's actually being said.</p>
+        </div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">3</div>
+        <div>
+          <h4>Only two content types: Tutorials and Taboo</h4>
+          <p>No content calendar, no "Testimonial Tuesday" structure &mdash; she finds structure adds friction. Every post is one of two things, broken down below.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-item">
+        <div class="pillar-name">Tutorials</div>
+        <div class="pillar-desc" style="margin-bottom:12px;">Step-by-step, broken down to an almost absurd granular level &mdash; like a recipe where skipping any step means you don't get the result. Her example: most people teach "how to check email" as one step. She teaches it as: press the power button &rarr; enter your password &rarr; find the Safari icon &rarr; press it. <strong>"Make the tutorials you wish you had"</strong> when you were starting out &mdash; that specificity is hard to do, which is exactly why it's a blue ocean.</div>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-name">Taboo</div>
+        <div class="pillar-desc" style="margin-bottom:12px;">The things most people in a niche won't say out loud &mdash; exact income down to the penny, exact expenses, getting sued, getting divorced, single motherhood, faith. Calls this her <strong>"knock and build"</strong> strategy: something that knocks you down a peg in social standing, paired with something that builds you back up, creates real tension people trust. "You think you want authority, but you actually want trust."</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Sourcing taboo content:</strong> track what you feel an emotion about in daily life &mdash; sad, angry, proud, whatever &mdash; that's a story worth telling. For sensitive topics (her divorce), she waited about a year before posting, which let her handle it "with a lot more class and dignity." The lesson isn't venting for venting's sake &mdash; it's "I went through this, I survived it, here's what I learned." Start with industry-taboo (money, business mistakes) before personal-taboo (divorce, single parenting) &mdash; personal is a harder skill.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="section" id="workflow">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <div><div class="section-title">The Workflow Ladder</div><div class="section-subtitle">Solo &rarr; one team member &rarr; a small content team</div></div>
+    </div>
+
+    <div class="timeline-phases">
+      <div class="phase-item"><div class="phase-dot">1</div><div class="phase-name">Solo</div><div class="phase-sub">Idea in Notes app &rarr; she films/writes/posts it herself. Built the first ~500k Instagram followers this way.</div></div>
+      <div class="phase-item"><div class="phase-dot">2</div><div class="phase-name">+1 Team Member</div><div class="phase-sub">Idea in Notes app &rarr; texted straight to the team member &rarr; they pick footage, cut the reel, schedule it &rarr; she gives final approval &rarr; track and repurpose (~80% of content is repurposed).</div></div>
+      <div class="phase-item"><div class="phase-dot">3</div><div class="phase-name">3&ndash;4 Team Members</div><div class="phase-sub">Same core loop, more hands. Now deliberately working down the awareness pyramid into mass-market content.</div></div>
+    </div>
+
+    <div class="callout callout-purple" style="margin-top:28px;">
+      <p><strong>The actual test she gives the room:</strong> don't copy her specific workflow &mdash; audit your own life and ask "what is the most likely way for me to create content in a way I'll actually stick with?" A workflow you build in one inspired burst and don't personally enjoy won't survive contact with a normal week.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="section" id="metric">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <div><div class="section-title">The One Metric That Matters</div><div class="section-subtitle">Views-to-followers ratio, not raw views</div></div>
+    </div>
+
+    <div class="card card-accent">
+      <p>The team's north star metric right now is Instagram followers (target: 1M by year end). To decide whether a piece of content is worth repurposing or boosting with ad spend, they don't look at views &mdash; they look at the <strong>views-to-followers ratio</strong>.</p>
+    </div>
+
+    <div class="vs-table">
+      <div class="vs-header old">Bad ratio</div>
+      <div class="vs-header new">Good ratio</div>
+      <div class="vs-row-old">100,000 views, 2 new followers &mdash; "happens sometimes," and it's a signal to leave that piece alone.</div>
+      <div class="vs-row-new">10,000 views, 2,000 new followers &mdash; immediately flagged to the ad team to run paid spend behind it.</div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-chip"><span class="val">~$500/day</span><span class="lbl">Ad spend, only on proven high-ratio content</span></div>
+      <div class="metric-chip"><span class="val">80%</span><span class="lbl">Of content is repurposed, not new</span></div>
+      <div class="metric-chip"><span class="val">1&ndash;2%</span><span class="lbl">Of followers actually notice repeat content</span></div>
+    </div>
+
+    <div class="callout callout-purple">
+      <p><strong>On repurposing without anyone noticing:</strong> she repeats content to the point of being "physically nauseous" saying the same thing &mdash; exact reposts, same script in a different outfit, or a small hook tweak. Her reasoning: only 1&ndash;2% of followers see any given post, so repetition reads as fresh to almost everyone, and the handful of lines she's repeated for years are the ones that have actually landed and stuck for her audience (e.g. "I made $63 my first year").</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section class="section" id="delegate">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <div><div class="section-title">What She Still Won't Delegate</div><div class="section-subtitle">The one job that stays with the business owner</div></div>
+    </div>
+
+    <div class="script-block">
+      <span class="script-label">Verbatim</span>
+      <p>"Some things in the business are best done by the business owner. You should be outsourcing domestic work &mdash; there's only so many ways to fold a towel. Have someone else fold your towels, fold your socks. But the highest-leverage points of the business &mdash; for me, that's writing every word we put out &mdash; are still done by me. That's how I make my money."</p>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);">Even with a 3&ndash;4 person content team producing 30&ndash;40 posts a day across platforms, she still writes every hook and script herself. The team's job is production and scheduling &mdash; not the message.</p>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section class="section" id="qa">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <div><div class="section-title">Rapid-Fire Q&amp;A</div><div class="section-subtitle">Selected answers from the floor</div></div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-tag">Repurposing</span> How do you decide if a piece gets repurposed?</div>
+      <div class="qa-a">Views-to-followers ratio, not raw views. A 10,000-view post that brings 2,000 followers is a great ratio and gets repurposed hard. A 100,000-view post that brings 2 followers gets left alone, even though the view count looks better on paper.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-tag">Targeting</span> Should content differ by awareness level as you scale?</div>
+      <div class="qa-a">Optimise for the most-aware tip of the pyramid first, always &mdash; "if you're speaking to everybody, you're talking to nobody." She only started working down into broader, less-aware audiences after fully dominating her specific niche.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-tag">Format mix</span> What's the ratio between B-roll/trending audio and talking-head content?</div>
+      <div class="qa-a">No fixed ratio &mdash; entirely account-dependent. Some of her students blew up on carousels, others on talking heads. Use the views-to-followers metric to find which style works for your specific account, then lean hard into that one.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 -->
+  <section class="section" id="bmr" style="border-bottom:none;">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <div><div class="section-title">BMR Application</div><div class="section-subtitle">Where this maps onto Steve's content and Alex</div></div>
+    </div>
+
+    <div class="card card-accent">
+      <p><strong>Simplicity is the actual lesson, not a caveat.</strong> Maria's whole run to $1M/month has zero editing, one content calendar rule ("only two types"), and no fancy tagging system. BMR's weekly content system (one Question, four angles: Connection / Character / Coaching / Flex+CTA) is already this simple. The instinct after a session like this is to add more structure -- resist it. If anything, look at what's been added to the system since it locked and ask whether it's still earning its place.</p>
+    </div>
+    <div class="card card-accent">
+      <p><strong>Tutorials + Taboo maps onto Wednesday and the Story Bank.</strong> "Tutorial" content is Wednesday's teaching slot -- the granular, step-by-step how (Chapter 10, the WER Loop, a specific breath practice, broken down to the same absurd specificity Maria uses). "Taboo" is the territory Story Bank and "Hot Topics Not Confession" already occupy -- naming what men don't say out loud about the pattern, without a depth-of-struggle confessional. Maria's rule to start with industry-taboo before personal-taboo lines up with the existing guardrail on not generating Steve's personal recovery content unprompted.</p>
+    </div>
+    <div class="card card-accent">
+      <p><strong>Views-to-followers ratio is a sharper lens for the locked dark-social metrics.</strong> BMR already tracks visits/clicks/sign-ups/DMs over comments. Maria's specific mechanic -- a ratio that flags which pieces deserve repurposing or ad spend, rather than which got the most raw views -- is a concrete way to apply that principle once there's enough volume of posts to compare.</p>
+    </div>
+    <div class="card card-accent">
+      <p><strong>The non-negotiable upload schedule and "I still write every word":</strong> both directly reinforce two things already locked -- Steve line-approving every script (Question Is The Hook), and the Master Rule copywriter test. Maria's team ships 30-40 posts a day with a content team, but the actual words are still hers. Same principle, smaller scale.</p>
+    </div>
+
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Notes from the July Intensive 2026 (Thailand) session. <a href="https://blackbeltmembers.com/digital-leverage-with-maria-wendt/" target="_blank">Watch the original &nearr;</a></span>
+  <span class="footer-note"><a href="bmr-july-intensive-thailand.html">&larr; Back to Intensive</a> &middot; <a href="bmr-blackbelt-hub.html">BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scale with Scissors with Laura Higgins -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+    --red-faint: rgba(220,50,50,0.07); --red-border: rgba(220,50,50,0.2);
+    --amber-faint: rgba(224,160,50,0.1);
+    --green-faint: rgba(30,160,90,0.08); --green-border: rgba(30,160,90,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface); color: var(--text); font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.65; }
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 6px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+  .main { min-width: 0; }
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-video-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 16px; font-size: 12px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: background 0.15s; }
+  .hero-video-link:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 24px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 18px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+  .script-block { background: var(--purple-tint); border: 1px solid var(--border-strong); border-radius: 6px; padding: 18px 22px; margin-bottom: 14px; }
+  .script-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 10px; display: block; }
+  .script-block p { font-size: 13.5px; line-height: 1.7; color: var(--text); margin: 0; font-style: italic; }
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+  .vs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 8px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); }
+  .vs-header { padding: 12px 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+  .vs-header.old { background: var(--red-faint); color: #c03030; }
+  .vs-header.new { background: var(--green-faint); color: #1a7a50; }
+  .vs-row-old, .vs-row-new { padding: 11px 18px; font-size: 13px; line-height: 1.55; }
+  .vs-row-old { background: rgba(220,50,50,0.04); color: #7a2020; border-bottom: 1px solid rgba(220,50,50,0.07); }
+  .vs-row-new { background: rgba(30,160,90,0.04); color: #1a5030; border-bottom: 1px solid rgba(30,160,90,0.07); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .matrix { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .matrix-cell { border-radius: 10px; padding: 20px; }
+  .matrix-cell h4 { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
+  .matrix-cell p { font-size: 13.5px; margin: 0; line-height: 1.6; }
+  .matrix-cell.prioritize { background: var(--green-faint); border: 1px solid var(--green-border); }
+  .matrix-cell.prioritize h4 { color: #1a7a50; }
+  .matrix-cell.protect { background: var(--purple-faint); border: 1px solid var(--border-strong); }
+  .matrix-cell.protect h4 { color: var(--purple); }
+  .matrix-cell.delegate { background: var(--amber-faint); border: 1px solid rgba(224,160,50,0.3); }
+  .matrix-cell.delegate h4 { color: #a06a10; }
+  .matrix-cell.delete { background: var(--red-faint); border: 1px solid var(--red-border); }
+  .matrix-cell.delete h4 { color: #c03030; }
+  .funnel-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .funnel-step { background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px 16px; font-size: 12.5px; font-weight: 600; color: var(--purple); text-align: center; flex: 1; min-width: 120px; }
+  .funnel-arrow { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; } .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .matrix { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt · July Intensive 2026 · Thailand</span>
+    <div class="title">Scale with Scissors &mdash; Laura Higgins</div>
+    <a href="bmr-july-intensive-thailand.html" class="back-link">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Intensive
+    </a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">The Case for Cutting</span>
+    <li><a href="#p1">1. The Everest Pack Problem</a></li>
+    <li><a href="#p2">2. Find the One Real Number</a></li>
+    <li><a href="#p3">3. Ditch the Shoulds</a></li>
+    <li><a href="#p4">4. Burnout &amp; Active Recovery</a></li>
+    <span class="nav-section">The Method</span>
+    <li><a href="#p5">5. Depth, Not Breadth</a></li>
+    <li><a href="#p6">6. The Money/Energy Matrix</a></li>
+    <span class="nav-section">Applied</span>
+    <li><a href="#p7">7. Q&amp;A: Fixing an Underperforming Funnel</a></li>
+    <li><a href="#p8">8. Her Actual Funnel ("Fully Booked")</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#bmr">BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt · July Intensive 2026 · Thailand · Sensei Session · Day 2.2.1</div>
+    <h1>Scale with Scissors &mdash; Growth Comes From <em>Cutting</em>, Not Adding</h1>
+    <p class="hero-desc">Laura Higgins on why the "throw spaghetti at the wall" mentality that works when you're starting a coaching business actively breaks past $1M/year &mdash; and the practical exercise for deciding what to prioritise, protect, delegate, and delete.</p>
+    <a href="https://blackbeltmembers.com/sensei-session-scale-with-scissors-with-laura-higgins/" target="_blank" class="hero-video-link">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the original (Black Belt Members site)
+    </a>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">10x</span><span class="label">Lead-to-call quality: $9 offer vs. free</span></div>
+      <div class="hero-stat"><span class="num">3</span><span class="label">"Greatest hits" kept on permanent rotation</span></div>
+      <div class="hero-stat"><span class="num">$50-80K/mo</span><span class="label">Ad spend, almost entirely on one flagship funnel</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="p1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">The Everest Pack Problem</div><div class="section-subtitle">What works starting out actively breaks past $1M</div></div></div>
+    <div class="quote-block"><p>"Starting out in Black Belt, you have to throw spaghetti at the wall &mdash; testing niche, marketing, sales mechanism, delivery. That mentality carried into a million-dollar-a-year business just starts to feel terrible and heavy. Like the people climbing Everest with a massive pack &mdash; to get to the next level, you can't keep carrying that much."</p></div>
+    <div class="card card-accent"><p>The problem isn't just marketing &mdash; there are things already inside your offer, your delivery, and your sales process adding noise without adding results. As a business scales, it gets genuinely harder to tell which specific funnel, piece of content, or delivery element is actually driving the outcome.</p></div>
+  </section>
+
+  <section class="section" id="p2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">Find the One Real Number</div><div class="section-subtitle">Vanity metrics vs. what you're actually optimising for</div></div></div>
+    <div class="card"><p>Marketing invites you to want everything at once &mdash; great ROAS, cheap leads, a million followers, YouTube subscribers. Pick the one number that actually matters (for her: qualified calls booked) and ignore the rest.</p></div>
+    <div class="vs-table">
+      <div class="vs-header old">Free lead magnet</div>
+      <div class="vs-header new">$9 paid offer</div>
+      <div class="vs-row-old">$2 cost per lead &mdash; but only 3% of leads converted through to a booked strategy session.</div>
+      <div class="vs-row-new">Costs more per lead &mdash; but 33% converted through to a booked strategy session. A 10x lift in the metric that actually matters.</div>
+    </div>
+    <div class="callout"><p>Confirmed with a paid-ads specialist reviewing her full funnel stack: one specific funnel was the actual seven-figure driver, with the lowest cost-per-booked-call of everything running. Know that number before deciding where to put more money and energy.</p></div>
+  </section>
+
+  <section class="section" id="p3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">Ditch the Shoulds</div><div class="section-subtitle">You're the boss &mdash; you get to choose</div></div></div>
+    <div class="card"><p>Once you know your one real number, you can stop chasing "shiny object" strategies that are crushing it for someone else but don't feel aligned for you. Only 2-3 things per vertical (marketing, sales, delivery) should get real focus &mdash; and they should be things you can execute without watching the clock or overthinking.</p></div>
+  </section>
+
+  <section class="section" id="p4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">Burnout &amp; Active Recovery</div><div class="section-subtitle">"Burnout happens when we stop having fun" &mdash; Taki</div></div></div>
+    <div class="quote-block"><p>Personal account: hosting a client event, her "social battery died" mid-conversation with a client, she had to ask her team for five minutes to go cry in her hotel room before pushing through one final session &mdash; then never actually circled back afterward to process it.</p></div>
+    <div class="callout callout-purple"><p><strong>Active recovery:</strong> athletes have a fully-locked-in game day, then deliberately don't train hard the next day &mdash; recovery is scheduled, not left to chance. Founders tend to just keep performing, performing, performing without ever scheduling the recovery half of that cycle, and lose themselves in the process.</p></div>
+    <p style="font-size:14px;color:var(--text-muted);">Her message to the room: if you're in that season right now, it will get better &mdash; the scariest part of burnout is believing you'll never get your spark back, and that belief is false.</p>
+  </section>
+
+  <section class="section" id="p5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">Depth, Not Breadth</div><div class="section-subtitle">Greatest hits on rotation beat a new offer every month</div></div></div>
+    <div class="card"><p>Building a new workshop every month meant she was creating curriculum, content, YouTube, emails and a fresh funnel simultaneously &mdash; and workshops on off-topic ideas tanked. The fix: identify her actual "greatest hits" &mdash; the 2-3 topics that reliably generate leads &mdash; and keep them in permanent rotation instead of inventing something new each cycle.</p></div>
+    <div class="callout"><p><strong>Why repetition converts better:</strong> having run the same workshop 10+ times means she knows her best stories, hits her cues, and converts better than the first time she ever ran it. Reference cited in the room: John Demartini has delivered his signature talk 1,848 times.</p></div>
+    <div class="callout callout-purple"><p><strong>"Choose your hard":</strong> same content to a new audience, or new content to the same audience &mdash; trying to do both (new content <em>and</em> new audience, every cycle) is what actually burns people out. One attendee's counterpoint: greatest hits stopped working for him because he wasn't growing his list &mdash; repetition only works if there's a large enough or continually refreshed audience seeing it.</p></div>
+  </section>
+
+  <section class="section" id="p6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">The Money / Energy Matrix</div><div class="section-subtitle">Her own spin on the Eisenhower matrix &mdash; live exercise</div></div></div>
+    <div class="matrix">
+      <div class="matrix-cell prioritize"><h4>Prioritise</h4><p>Makes money + gives energy. Should only be a handful of things (for her: creating content, delivering to clients).</p></div>
+      <div class="matrix-cell protect"><h4>Protect</h4><p>Gives energy, doesn't make money &mdash; can be business or personal (Pilates, sauna, walking the dog). This is how you burnout-proof the business.</p></div>
+      <div class="matrix-cell delegate"><h4>Delegate</h4><p>Makes money, drains energy, but is essential to keep the business running. Hand to a person or to AI &mdash; doesn't matter which.</p></div>
+      <div class="matrix-cell delete"><h4>Delete</h4><p>Doesn't make money, drains energy, and isn't essential. Every attendee was asked to actually delete one real thing before leaving the room.</p></div>
+    </div>
+    <div class="callout"><p><strong>Rule for the exercise:</strong> keep it strictly business-related. And the "essential" test for the delegate box is genuinely: does removing this stop the business from operating? If not, it's a delete candidate, not a delegate candidate.</p></div>
+  </section>
+
+  <section class="section" id="p7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Q&amp;A: Fixing an Underperforming Funnel</div><div class="section-subtitle">Selected answers from the floor</div></div></div>
+    <div class="card card-accent"><p><strong>Diagnosing a funnel that's technically running but underperforming:</strong> the issue often isn't the whole strategy &mdash; it's one specific piece, often the opt-in offer itself. Her suggestion: consider whether the current lead magnet is the right top-of-funnel piece at all, or whether it should be relocated further down the funnel (the same move she made with her own VSL &mdash; shifted from top-of-funnel to "watch this before your call").</p></div>
+    <div class="script-block">
+      <span class="script-label">A squeeze-page qualification tactic, shared by another attendee</span>
+      <p>Build a hyper-specific opt-in page naming exactly who it's for &mdash; accept a low conversion rate (5-10%) in exchange for a Meta pixel trained specifically on that avatar. Add a VSL on the same page, then a 10-minute typeform application before anyone can book a call &mdash; disqualifying 60-70% of remaining leads. By the time someone is actually on the phone, they're roughly 90% pre-qualified.</p>
+    </div>
+    <div class="callout"><p><strong>Pricing test result (hers):</strong> free masterclass = low lead quality. Adding a $9 price tag: lead quality roughly 10x'd. Also tested $19 against $9 &mdash; $9 won consistently.</p></div>
+  </section>
+
+  <section class="section" id="p8" style="border-bottom:none;">
+    <div class="section-header"><span class="section-num">08</span><div><div class="section-title">Her Actual Funnel &mdash; "Fully Booked"</div><div class="section-subtitle">As described live in the session</div></div></div>
+    <div class="funnel-flow">
+      <div class="funnel-step">Ads (cold + warm) &mdash; $50-80K/mo</div><div class="funnel-arrow">&rarr;</div>
+      <div class="funnel-step">$9 "Fully Booked" opt-in + VSL</div><div class="funnel-arrow">&rarr;</div>
+      <div class="funnel-step">Checkout-page dropdown: business stage</div><div class="funnel-arrow">&rarr;</div>
+      <div class="funnel-step">$5K+ &rarr; book a call</div><div class="funnel-arrow">&rarr;</div>
+      <div class="funnel-step">Triage (3 SDRs) &rarr; 2 closers</div>
+    </div>
+    <div class="card"><p>Qualification bar was recently lowered from $10K+ revenue to $5K+ after discovering some smaller businesses had the money and were ready to invest immediately &mdash; opened up volume, even though it's a less precise filter than before. Live paid workshops have shifted from top-of-funnel to <strong>middle-of-funnel</strong>: sometimes upsold directly at checkout to lift average order value, rather than used to drive new $9 sign-ups.</p></div>
+  </section>
+
+  <section class="section" id="bmr" style="border-top:1px solid var(--border);">
+    <div class="section-header"><span class="section-num">&bull;</span><div><div class="section-title">BMR Application</div><div class="section-subtitle">Where this maps onto BMR's launch and content load</div></div></div>
+    <div class="card card-accent"><p><strong>The lead magnet decision, seen through the $9-vs-free data:</strong> BMR's lead magnet is still undecided (arc audit vs stage audit, target was Jul 28-Aug 1). Laura's finding is worth weighing directly -- a small friction point (even a short paid step, or a genuinely specific qualifying question) may filter for men who are actually ready to act, not just curious, and could produce a higher-quality sign-up than a fully frictionless free download.</p></div>
+    <div class="card card-accent"><p><strong>Greatest hits over new content every cycle:</strong> the locked BMR content strategy (organise by audience Question, not monthly themes) already behaves like a greatest-hits rotation -- a strong Question and its four-post treatment can be revisited and re-angled rather than replaced. Worth protecting that discipline explicitly rather than feeling pressure to invent a new framework every month.</p></div>
+    <div class="card card-accent"><p><strong>The Money/Energy matrix as a personal exercise for Steve:</strong> a concrete, reusable filter for what actually earns a place on his plate right now -- module-writing, content, launch admin, Companion Copy backlog -- versus what's just adding load without moving the launch forward. Directly relevant given the current stack of open items (Offer Diamond loose ends, Companion Copy gaps, social account setup, lead magnet).</p></div>
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Notes from the July Intensive 2026 (Thailand) &middot; Sensei Session. <a href="https://blackbeltmembers.com/sensei-session-scale-with-scissors-with-laura-higgins/" target="_blank">Watch the original &nearr;</a></span>
+  <span class="footer-note"><a href="bmr-july-intensive-thailand.html">&larr; Back to Intensive</a> &middot; <a href="bmr-blackbelt-hub.html">BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>
