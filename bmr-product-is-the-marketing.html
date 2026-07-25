@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Product Is The Marketing -- BMR Black Belt Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2A6B58; --purple-light: #41A687; --purple-faint: #E7F1EC; --purple-tint: #DCEAE3;
+    --orange: #FF735D; --orange-faint: #FFEDE9; --pink: #FF735D; --teal: #41A687;
+    --ground: #EFECE5; --surface: #FFFFFF; --surface-2: #F5F2EC;
+    --text: #1E2F24; --text-muted: #5b6b62; --border: rgba(42,107,88,0.15); --border-strong: rgba(42,107,88,0.3);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface); color: var(--text); font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.65; }
+  .page-wrap { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface-2); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-logo { padding: 0 18px 20px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .sidebar-logo .belt { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); font-weight: 600; display: block; margin-bottom: 4px; }
+  .sidebar-logo .title { font-size: 13px; font-weight: 700; color: var(--purple); line-height: 1.3; }
+  .sidebar-logo .back-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .sidebar-logo .back-link:hover { color: var(--purple); }
+  .sidebar-nav { list-style: none; padding: 0; }
+  .sidebar-nav li a { display: block; padding: 6px 18px; font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s; line-height: 1.4; }
+  .sidebar-nav li a:hover { color: var(--purple); background: var(--purple-tint); border-left-color: var(--orange); }
+  .nav-section { display: block; padding: 14px 18px 5px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); font-weight: 700; opacity: 0.7; }
+  .main { min-width: 0; }
+  .hero { background: var(--purple); padding: 60px 52px 52px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.03); pointer-events: none; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 36px; background: var(--orange); opacity: 0.6; }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--orange); font-weight: 700; }
+  .hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat .num { font-size: 24px; font-weight: 800; color: var(--orange); line-height: 1; letter-spacing: -0.02em; }
+  .hero-stat .label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; margin-top: 7px; flex-shrink: 0; width: 26px; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--text-muted); }
+  .card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; margin-top: 18px; opacity: 0.75; }
+  .card h4:first-child { margin-top: 0; }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul, .card ol { padding-left: 20px; margin-bottom: 10px; }
+  .card li { font-size: 14px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+  .card strong { font-weight: 700; color: var(--purple); }
+  .card em { color: var(--orange); font-style: italic; }
+  .card-accent { background: var(--purple-faint); border-color: var(--border-strong); border-left: 3px solid var(--orange); }
+  .quote-block { background: var(--purple-faint); border-left: 3px solid var(--purple); padding: 18px 22px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .quote-block p { font-size: 16px; font-weight: 600; font-style: italic; color: var(--purple); line-height: 1.55; margin: 0; }
+  .callout { background: var(--orange-faint); border: 1px solid rgba(255,115,93,0.25); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+  .callout p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.6; }
+  .callout strong { color: var(--orange); font-weight: 700; }
+  .callout-purple { background: var(--purple-faint); border-color: var(--border-strong); }
+  .callout-purple p { color: var(--purple); font-weight: 500; }
+  .callout-purple strong { color: var(--purple); }
+  .callout-warn { background: rgba(220,50,50,0.06); border: 1px solid rgba(220,50,50,0.2); }
+  .callout-warn strong { color: #b93a3a; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .rank-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .rank-item { display: flex; gap: 14px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .rank-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rank-item h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; opacity: 1; }
+  .rank-item p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .timeline-phases { display: flex; gap: 0; position: relative; margin-bottom: 16px; }
+  .timeline-phases::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--border-strong), var(--orange), var(--border-strong)); z-index: 0; }
+  .phase-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; z-index: 1; padding: 0 6px; }
+  .phase-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; }
+  .phase-name { font-size: 13px; font-weight: 700; color: var(--purple); }
+  .phase-sub { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+  .page-footer { padding: 36px 52px; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+  .footer-note a { color: var(--orange); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .hero, .section { padding: 36px 22px; } .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .timeline-phases { flex-direction: column; gap: 14px; } .timeline-phases::before { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<nav class="sidebar" aria-label="Page sections">
+  <div class="sidebar-logo">
+    <span class="belt">Black Belt Session</span>
+    <div class="title">The Product Is The Marketing</div>
+    <a href="index.html" class="back-link">&#8592; Back to Hub</a>
+  </div>
+  <ul class="sidebar-nav">
+    <span class="nav-section">The Core Idea</span>
+    <li><a href="#p1">1. Collapse the Three Streams</a></li>
+    <li><a href="#p2">2. The Extraction Principle</a></li>
+    <span class="nav-section">The Method</span>
+    <li><a href="#p3">3. Source Material Selection</a></li>
+    <li><a href="#p4">4. Nose-to-Tail Mapping</a></li>
+    <li><a href="#p5">5. The Banger Card</a></li>
+    <li><a href="#p6">6. Free Info, Paid Implementation</a></li>
+    <li><a href="#p7">7. Monthly Cadence</a></li>
+    <span class="nav-section">Reference</span>
+    <li><a href="#bmr">BMR Application</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Black Belt Session</div>
+    <h1>The Product Is The Marketing &mdash; Your Best Work Is Already Your Best Content</h1>
+    <p class="hero-desc">Stop running three separate content jobs -- client delivery, sales, and marketing. Collapse them into one high-quality offering built for paying clients, then extract slices of it for everything else. Content made purely for promotion is never as good as content made for someone who's actually paying you.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">3</span><span class="label">Streams collapsed into one</span></div>
+      <div class="hero-stat"><span class="num">4</span><span class="label">Extractable pieces per client session</span></div>
+      <div class="hero-stat"><span class="num">4</span><span class="label">Week monthly cadence</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="p1">
+    <div class="section-header"><span class="section-num">01</span><div><div class="section-title">Collapse the Three Streams</div><div class="section-subtitle">Client delivery, sales, and marketing stop being separate jobs</div></div></div>
+    <div class="card"><p>Most people run three content engines at once: what they say to paying clients, what they say to close a sale, and what they post to attract attention. All three compete for time, and the promotional stream is usually the weakest, because it's manufactured rather than lived.</p></div>
+    <div class="quote-block"><p>A paid program is a party happening in a room. Marketing just lets prospects peek through the keyhole at what's genuinely going on inside.</p></div>
+    <div class="callout"><p><strong>The reasoning:</strong> client-facing content is already your best work -- more authentic and more thought-through than anything built purely to promote. Build one great thing, then let the marketing be a real window into it.</p></div>
+  </section>
+
+  <section class="section" id="p2">
+    <div class="section-header"><span class="section-num">02</span><div><div class="section-title">The Extraction Principle</div><div class="section-subtitle">Re-record the idea, don't clip the footage</div></div></div>
+    <div class="card"><p>Don't chop up existing long-form footage for social. Find the core idea or "zinger" inside it -- the quotable line that actually landed with the client -- and re-record it fresh, in the format the platform actually wants.</p></div>
+    <div class="callout callout-warn"><p><strong>The line from the room:</strong> "If I see you clip your long-form footage, I will lose all respect." Repurposing means re-delivering the idea, not recycling the recording.</p></div>
+  </section>
+
+  <section class="section" id="p3">
+    <div class="section-header"><span class="section-num">03</span><div><div class="section-title">Source Material Selection</div><div class="section-subtitle">Two buckets to pull from</div></div></div>
+    <div class="grid-2">
+      <div class="card"><h4>Greatest Hits</h4><p>Foundational, evergreen material you've taught for years and still stand behind completely.</p></div>
+      <div class="card"><h4>Recent Bangers</h4><p>Whatever's actually exciting you right now -- the newest insight, the freshest reframe.</p></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text-muted);">Choose deliberately based on whether you're tired of the old material or energised by something new -- not on a fixed schedule.</p>
+  </section>
+
+  <section class="section" id="p4">
+    <div class="section-header"><span class="section-num">04</span><div><div class="section-title">Nose-to-Tail Mapping</div><div class="section-subtitle">One session, multiple standalone pieces</div></div></div>
+    <div class="card"><p>A single client session or workshop contains more than one piece of content: the core model taught, the individual key points with their stories and metaphors, the frustration-to-aspiration arc of the whole session, and any exercises used. Each of these can become its own standalone piece rather than one session producing exactly one clip.</p></div>
+  </section>
+
+  <section class="section" id="p5">
+    <div class="section-header"><span class="section-num">05</span><div><div class="section-title">The Banger Card Structure</div><div class="section-subtitle">Turning an extracted idea into a piece of content</div></div></div>
+    <div class="card">
+      <h4>Idea</h4><p>One sentence, plain English summary.</p>
+      <h4>Payoff</h4><p>The belief shift -- the zinger.</p>
+      <h4>Build</h4><p>The story, list, or steps that earn the payoff.</p>
+      <h4>Hook &amp; Invitation</h4><p>Drafted rough, sharpened afterward with AI tools.</p>
+    </div>
+  </section>
+
+  <section class="section" id="p6">
+    <div class="section-header"><span class="section-num">06</span><div><div class="section-title">Free Information, Paid Implementation</div><div class="section-subtitle">Why giving away the "what" doesn't cannibalise the "how"</div></div></div>
+    <div class="quote-block"><p>When you give freely of your information, you earn the right to charge a premium for implementation.</p></div>
+    <div class="card"><p>Free content doesn't compete with the paid offer. Implementation -- the actual support of doing the work, in real time, with someone -- is where the real value sits. Nobody stops buying a coaching program because they read a good article about the underlying idea.</p></div>
+  </section>
+
+  <section class="section" id="p7">
+    <div class="section-header"><span class="section-num">07</span><div><div class="section-title">Monthly Cadence Structure</div><div class="section-subtitle">A four-week rhythm to build content around</div></div></div>
+    <div class="timeline-phases">
+      <div class="phase-item"><div class="phase-dot">1</div><div class="phase-name">Onboarding</div><div class="phase-sub">Client onboarding week</div></div>
+      <div class="phase-item"><div class="phase-dot">2</div><div class="phase-name">Promote</div><div class="phase-sub">Build toward the upcoming workshop topic</div></div>
+      <div class="phase-item"><div class="phase-dot">3</div><div class="phase-name">Deliver</div><div class="phase-sub">Run the public workshop -- same core ideas, adjusted for newcomers</div></div>
+      <div class="phase-item"><div class="phase-dot">4</div><div class="phase-name">Evergreen</div><div class="phase-sub">Close out with no-CTA "club" content</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text-muted);">YouTube runs outside this cycle entirely, as genuinely evergreen traffic. Topic planning works monthly; rigid weekly content calendars don't -- agree the theme, then create close to filming while it's still alive.</p>
+  </section>
+
+  <section class="section" id="bmr" style="border-top:1px solid var(--border); padding-top:48px; border-bottom:none;">
+    <div class="section-header"><span class="section-num">&bull;</span><div><div class="section-title">BMR Application</div><div class="section-subtitle">What transfers now, and what waits for launch</div></div></div>
+    <div class="card card-accent"><p><strong>The core principle already matches BMR's existing content philosophy:</strong> Wednesday's teaching content already pulls from real module/framework material rather than manufactured social copy, and the whole system runs on "the answer can come from anywhere real," not invented hooks. This session validates that instinct rather than changing it.</p></div>
+    <div class="card card-accent"><p><strong>Nose-to-Tail Mapping and the Banger Card are genuinely new, usable tools</strong> -- a repeatable way to pull one idea, three stories, and one exercise out of a single module or coaching conversation, instead of treating each module as good for exactly one post.</p></div>
+    <div class="callout callout-warn"><p><strong>What doesn't transfer yet:</strong> this framework assumes an active paying cohort generating live delivery material -- workshops, group Q&amp;A, real-time coaching calls -- to extract from. BMR isn't there yet (pre-launch, no live cohort running). It becomes fully applicable once The Relationship Rescue and Redeemed Club community calls are live.</p></div>
+    <div class="callout callout-warn"><p><strong>Sensitivity flag specific to BMR, not present in the SMC clinic context:</strong> extracting real client-session material assumes it's shareable. Recovery work needs a higher anonymity bar than clinic practice-management coaching -- any future extraction from real client calls needs clear consent and boundaries around what counts as vulnerability versus oversharing someone else's struggle.</p></div>
+    <div class="card card-accent"><p><strong>Filed for post-launch, not active priority now.</strong> Worth revisiting once live delivery (workshops, community calls) is actually running.</p></div>
+  </section>
+
+</main>
+</div>
+
+<footer class="page-footer">
+  <span class="footer-note">Distilled from a Black Belt session.</span>
+  <span class="footer-note"><a href="index.html">&larr; Back to BMR Black Belt Hub</a></span>
+</footer>
+
+</body>
+</html>
